@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: tms-backend
+  profiles:
+    active: dev
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+jwt:
+  secret: tms-secret-key-2024-secure-transportation-management-system
+  expiration: 86400000
+
+logging:
+  level:
+    com.tms: DEBUG
+    org.springframework.security: DEBUG
