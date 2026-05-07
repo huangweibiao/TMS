@@ -73,7 +73,7 @@ public class CostDetailServiceImpl implements CostDetailService {
             CostCalculateRequest.AdditionalCost additional = request.getAdditionalCost();
 
             // 装卸费
-            if (additional.getLoadingFee().compareTo(BigDecimal.ZERO) > 0) {
+            if (additional.getLoadingFee() != null && additional.getLoadingFee().compareTo(BigDecimal.ZERO) > 0) {
                 CostDetailDTO loadingCost = createAdditionalCost(waybill, 2, "装卸费",
                         additional.getLoadingFee(), 1, "应收");
                 result.add(loadingCost);
@@ -81,7 +81,7 @@ public class CostDetailServiceImpl implements CostDetailService {
             }
 
             // 保险费
-            if (additional.getInsuranceFee().compareTo(BigDecimal.ZERO) > 0) {
+            if (additional.getInsuranceFee() != null && additional.getInsuranceFee().compareTo(BigDecimal.ZERO) > 0) {
                 CostDetailDTO insuranceCost = createAdditionalCost(waybill, 3, "保险费",
                         additional.getInsuranceFee(), 1, "应收");
                 result.add(insuranceCost);
@@ -89,7 +89,7 @@ public class CostDetailServiceImpl implements CostDetailService {
             }
 
             // 等待费
-            if (additional.getWaitingFee().compareTo(BigDecimal.ZERO) > 0) {
+            if (additional.getWaitingFee() != null && additional.getWaitingFee().compareTo(BigDecimal.ZERO) > 0) {
                 CostDetailDTO waitingCost = createAdditionalCost(waybill, 4, "等待费",
                         additional.getWaitingFee(), 2, "应付");
                 result.add(waitingCost);
@@ -97,7 +97,7 @@ public class CostDetailServiceImpl implements CostDetailService {
             }
 
             // 高速费
-            if (additional.getTollFee().compareTo(BigDecimal.ZERO) > 0) {
+            if (additional.getTollFee() != null && additional.getTollFee().compareTo(BigDecimal.ZERO) > 0) {
                 CostDetailDTO tollCost = createAdditionalCost(waybill, 5, "高速费",
                         additional.getTollFee(), 2, "应付");
                 result.add(tollCost);
@@ -105,7 +105,7 @@ public class CostDetailServiceImpl implements CostDetailService {
             }
 
             // 其他费用
-            if (additional.getOtherFee().compareTo(BigDecimal.ZERO) > 0) {
+            if (additional.getOtherFee() != null && additional.getOtherFee().compareTo(BigDecimal.ZERO) > 0) {
                 CostDetailDTO otherCost = createAdditionalCost(waybill, 7, "其他费用",
                         additional.getOtherFee(), 2, "应付");
                 result.add(otherCost);

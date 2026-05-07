@@ -32,7 +32,7 @@ public class WarehouseController {
      * @return 创建结果
      */
     @PostMapping
-    public Result Result<WarehouseDTO> createWarehouse(@Valid @RequestBody WarehouseDTO warehouseDTO) {
+    public Result<WarehouseDTO> createWarehouse(@Valid @RequestBody WarehouseDTO warehouseDTO) {
         WarehouseDTO result = warehouseService.createWarehouse(warehouseDTO);
         return Result.success("创建成功", result);
     }
@@ -45,7 +45,7 @@ public class WarehouseController {
      * @return 更新结果
      */
     @PutMapping("/{id}")
-    public Result Result<WarehouseDTO> updateWarehouse(@PathVariable Long id, @Valid @RequestBody WarehouseDTO warehouseDTO) {
+    public Result<WarehouseDTO> updateWarehouse(@PathVariable Long id, @Valid @RequestBody WarehouseDTO warehouseDTO) {
         WarehouseDTO result = warehouseService.updateWarehouse(id, warehouseDTO);
         return Result.success("更新成功", result);
     }
@@ -69,7 +69,7 @@ public class WarehouseController {
      * @return 仓库信息
      */
     @GetMapping("/{id}")
-    public Result Result<WarehouseDTO> getWarehouseById(@PathVariable Long id) {
+    public Result<WarehouseDTO> getWarehouseById(@PathVariable Long id) {
         WarehouseDTO result = warehouseService.getWarehouseById(id);
         return Result.success(result);
     }
@@ -84,12 +84,13 @@ public class WarehouseController {
      * @return 仓库分页列表
      */
     @GetMapping
-    public Result Result<PageResultResult<WarehouseDTO>> getWarehouseList(
+    public Result<PageResult<WarehouseDTO>> getWarehouseList(
             @RequestParam(required = false) String warehouseName,
             @RequestParam(required = false) Integer status,
             @RequestParam(defaultValue = "1") int pageNum,
             @RequestParam(defaultValue = "10") int pageSize) {
-        PageResultResult<WarehouseDTO> result = warehouseService.getWarehouseList(warehouseName, status, pageNum, pageSize);
+        PageResult<WarehouseDTO> result = warehouseService.getWarehouseList(warehouseName, status, pageNum, pageSize);
         return Result.success(result);
     }
 }
+

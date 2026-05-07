@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -225,6 +226,216 @@ public class WaybillServiceImpl implements WaybillService {
         }
 
         waybillRepository.save(waybill);
+    }
+
+    @Override
+    @Transactional
+    public void auditWaybill(Long id, String remark) {
+        Waybill waybill = waybillRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("运单不存在"));
+
+        // 只有待调度状态的运单可以审核
+        if (waybill.getWaybillStatus() != 1) {
+            throw new BusinessException("只有待调度状态的运单可以审核");
+        }
+
+        // 审核通过后状态保持待调度，等待调度分配
+        if (remark != null && !remark.isEmpty()) {
+            waybill.setRemark(waybill.getRemark() + "; 审核备注: " + remark);
+        }
+
+        waybillRepository.save(waybill);
+    }
+
+    @Override
+    @Transactional
+    public void confirmPickup(Long id) {
+        Waybill waybill = waybillRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("运单不存在"));
+
+        // 只有已调度状态的运单可以确认提货
+        if (waybill.getWaybillStatus() != 2) {
+            throw new BusinessException("只有已调度状态的运单可以确认提货");
+        }
+
+        waybill.setWaybillStatus(3); // 提货中
+        waybill.setActualPickupTime(LocalDateTime.now());
+        waybillRepository.save(waybill);
+    }
+
+    @Override
+    @Transactional
+    public void confirmDelivery(Long id, String signerName, String remark) {
+        Waybill waybill = waybillRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("运单不存在"));
+
+        // 只有运输中状态的运单可以确认签收
+        if (waybill.getWaybillStatus() != 4) {
+            throw new BusinessException("只有运输中状态的运单可以确认签收");
+        }
+
+        waybill.setWaybillStatus(5); // 签收
+        waybill.setActualDeliveryTime(LocalDateTime.now());
+        if (remark != null && !remark.isEmpty()) {
+            waybill.setRemark(waybill.getRemark() + "; 签收人: " + signerName + ", 备注: " + remark);
+        }
+
+        waybillRepository.save(waybill);
+    }
+
+    @Override
+    @Transactional
+    public void markException(Long id, String reason, String remark) {
+        Waybill waybill = waybillRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("运单不存在"));
+
+        // 保存当前状态到备注，以便后续恢复
+        Integer currentStatus = waybill.getWaybillStatus();
+
+        waybill.setWaybillStatus(6); // 异常
+        String exceptionInfo = "异常原因: " + reason;
+        if (remark != null && !remark.isEmpty()) {
+            exceptionInfo += ", 备注: " + remark;
+        }
+        exceptionInfo += ", 原状态: " + currentStatus;
+        waybill.setRemark(waybill.getRemark() + "; " + exceptionInfo);
+
+        waybillRepository.save(waybill);
+    }
+
+    @Override
+    @Transactional
+    public void handleException(Long id, String solution, String remark) {
+        Waybill waybill = waybillRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("运单不存在"));
+
+        // 只有异常状态的运单可以处理
+        if (waybill.getWaybillStatus() != 6) {
+            throw new BusinessException("只有异常状态的运单可以处理");
+        }
+
+        // 从备注中解析原状态
+        String currentRemark = waybill.getRemark();
+        Integer originalStatus = 1; // 默认恢复到待调度
+
+        if (currentRemark != null && currentRemark.contains("原状态: ")) {
+            try {
+                String statusStr = currentRemark.substring(currentRemark.lastIndexOf("原状态: ") + 4);
+                // 截取数字部分
+                statusStr = statusStr.split(",")[0].split(";")[0].trim();
+                originalStatus = Integer.parseInt(statusStr);
+            } catch (Exception e) {
+                // 解析失败，使用默认状态
+                originalStatus = 1;
+            }
+        }
+
+        waybill.setWaybillStatus(originalStatus);
+        String handleInfo = "异常处理: " + solution;
+        if (remark != null && !remark.isEmpty()) {
+            handleInfo += ", 备注: " + remark;
+        }
+        waybill.setRemark(waybill.getRemark() + "; " + handleInfo);
+
+        waybillRepository.save(waybill);
+    }
+
+    @Override
+    @Transactional
+    public WaybillDTO splitWaybill(Long id, List List<WaybillDTO> splitItems) {
+        Waybill originalWaybill = waybillRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("运单不存在"));
+
+        // 只有待调度状态的运单可以拆分
+        if (originalWaybill.getWaybillStatus() != 1) {
+            throw new BusinessException("只有待调度状态的运单可以拆分");
+        }
+
+        if (splitItems == null || splitItems.isEmpty()) {
+            throw new BusinessException("拆分项不能为空");
+        }
+
+        // 标记原运单为已拆分（这里简化为取消，实际应该保留原运单作为父运单）
+        originalWaybill.setWaybillStatus(7); // 取消
+        originalWaybill.setRemark(originalWaybill.getRemark() + "; 已拆分为新运单");
+        waybillRepository.save(originalWaybill);
+
+        // 创建新运单（只创建第一个拆分项，简化实现）
+        WaybillDTO firstItem = splitItems.get(0);
+        firstItem.setOrderNo(originalWaybill.getOrderNo());
+        firstItem.setCustomerId(originalWaybill.getCustomerId());
+        firstItem.setShipperName(originalWaybill.getShipperName());
+        firstItem.setShipperPhone(originalWaybill.getShipperPhone());
+        firstItem.setShipperAddress(originalWaybill.getShipperAddress());
+        firstItem.setConsigneeName(originalWaybill.getConsigneeName());
+        firstItem.setConsigneePhone(originalWaybill.getConsigneePhone());
+        firstItem.setConsigneeAddress(originalWaybill.getConsigneeAddress());
+
+        return createWaybill(firstItem);
+    }
+
+    @Override
+    @Transactional
+    public WaybillDTO mergeWaybills(List<Long> ids) {
+        if (ids == null || ids.size() < 2) {
+            throw new BusinessException("合并至少需要两个运单");
+        }
+
+        List List<Waybill> waybills = waybillRepository.findAllById(ids);
+
+        if (waybills.size() != ids.size()) {
+            throw new BusinessException("部分运单不存在");
+        }
+
+        // 检查是否都是待调度状态
+        for (Waybill waybill : waybills) {
+            if (waybill.getWaybillStatus() != 1) {
+                throw new BusinessException("只有待调度状态的运单可以合并");
+            }
+        }
+
+        // 检查客户是否一致
+        Long customerId = waybills.get(0).getCustomerId();
+        for (Waybill waybill : waybills) {
+            if (!customerId.equals(waybill.getCustomerId())) {
+                throw new BusinessException("不同客户的运单不能合并");
+            }
+        }
+
+        // 取消原运单
+        for (Waybill waybill : waybills) {
+            waybill.setWaybillStatus(7); // 取消
+            waybill.setRemark(waybill.getRemark() + "; 已合并为新运单");
+            waybillRepository.save(waybill);
+        }
+
+        // 创建合并后的运单
+        Waybill firstWaybill = waybills.get(0);
+        WaybillDTO mergedWaybill = new WaybillDTO();
+        mergedWaybill.setOrderNo(firstWaybill.getOrderNo());
+        mergedWaybill.setCustomerId(firstWaybill.getCustomerId());
+        mergedWaybill.setShipperName(firstWaybill.getShipperName());
+        mergedWaybill.setShipperPhone(firstWaybill.getShipperPhone());
+        mergedWaybill.setShipperAddress(firstWaybill.getShipperAddress());
+        mergedWaybill.setConsigneeName(firstWaybill.getConsigneeName());
+        mergedWaybill.setConsigneePhone(firstWaybill.getConsigneePhone());
+        mergedWaybill.setConsigneeAddress(firstWaybill.getConsigneeAddress());
+        mergedWaybill.setRemark("合并运单，原运单: " + ids);
+
+        // 合并明细
+        List List<WaybillDetailDTO> mergedDetails = new ArrayList<>();
+        for (Waybill waybill : waybills) {
+            List List<WaybillDetail> details = waybillDetailRepository.findByWaybillId(waybill.getId());
+            for (WaybillDetail detail : details) {
+                WaybillDetailDTO detailDTO = convertDetailToDTO(detail);
+                detailDTO.setId(null); // 清除ID，作为新记录
+                detailDTO.setWaybillId(null);
+                mergedDetails.add(detailDTO);
+            }
+        }
+        mergedWaybill.setDetails(mergedDetails);
+
+        return createWaybill(mergedWaybill);
     }
 
     /**

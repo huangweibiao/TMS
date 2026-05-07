@@ -35,9 +35,9 @@ public class CostDetailController {
      * @return 费用明细列表
      */
     @PostMapping("/calculate")
-    public Result<List<List<CostDetailDTO>> calculateCost(@Valid @RequestBody CostCalculateRequest request) {
-        List List<CostDetailDTO> result = costDetailService.calculateCost(request);
-        return Result.success("计算成功", result);
+    public Result<List<CostDetailDTO>> calculateCost(@Valid @RequestBody CostCalculateRequest request) {
+        List<CostDetailDTO> result = costDetailService.calculateCost(request);
+        return Result.success(result);
     }
 
     /**
@@ -47,8 +47,8 @@ public class CostDetailController {
      * @return 费用明细列表
      */
     @GetMapping("/waybill/{waybillId}")
-    public Result<List<List<CostDetailDTO>> getCostDetailsByWaybillId(@PathVariable Long waybillId) {
-        List List<CostDetailDTO> result = costDetailService.getCostDetailsByWaybillId(waybillId);
+    public Result<List<CostDetailDTO>> getCostDetailsByWaybillId(@PathVariable Long waybillId) {
+        List<CostDetailDTO> result = costDetailService.getCostDetailsByWaybillId(waybillId);
         return Result.success(result);
     }
 
@@ -62,12 +62,12 @@ public class CostDetailController {
      * @return 费用明细分页列表
      */
     @GetMapping
-    public Result Result<PageResultResult<CostDetailDTO>> getCostDetailList(
+    public Result<PageResult<CostDetailDTO>> getCostDetailList(
             @RequestParam(required = false) String waybillNo,
             @RequestParam(required = false) Integer costType,
             @RequestParam(defaultValue = "1") int pageNum,
             @RequestParam(defaultValue = "10") int pageSize) {
-        PageResultResult<CostDetailDTO> result = costDetailService.getCostDetailList(waybillNo, costType, pageNum, pageSize);
+        PageResult<CostDetailDTO> result = costDetailService.getCostDetailList(waybillNo, costType, pageNum, pageSize);
         return Result.success(result);
     }
 
@@ -78,9 +78,9 @@ public class CostDetailController {
      * @return 创建结果
      */
     @PostMapping
-    public Result Result<CostDetailDTO> createCostDetail(@Valid @RequestBody CostDetailDTO costDetailDTO) {
+    public Result<CostDetailDTO> createCostDetail(@Valid @RequestBody CostDetailDTO costDetailDTO) {
         CostDetailDTO result = costDetailService.createCostDetail(costDetailDTO);
-        return Result.success("创建成功", result);
+        return Result.success(result);
     }
 
     /**
@@ -91,9 +91,9 @@ public class CostDetailController {
      * @return 更新结果
      */
     @PutMapping("/{id}")
-    public Result Result<CostDetailDTO> updateCostDetail(@PathVariable Long id, @Valid @RequestBody CostDetailDTO costDetailDTO) {
+    public Result<CostDetailDTO> updateCostDetail(@PathVariable Long id, @Valid @RequestBody CostDetailDTO costDetailDTO) {
         CostDetailDTO result = costDetailService.updateCostDetail(id, costDetailDTO);
-        return Result.success("更新成功", result);
+        return Result.success(result);
     }
 
     /**
@@ -105,7 +105,7 @@ public class CostDetailController {
     @DeleteMapping("/{id}")
     public Result<Void> deleteCostDetail(@PathVariable Long id) {
         costDetailService.deleteCostDetail(id);
-        return Result.success("删除成功");
+        return Result.success();
     }
 
     /**
@@ -115,7 +115,7 @@ public class CostDetailController {
      * @return 费用明细
      */
     @GetMapping("/{id}")
-    public Result Result<CostDetailDTO> getCostDetailById(@PathVariable Long id) {
+    public Result<CostDetailDTO> getCostDetailById(@PathVariable Long id) {
         CostDetailDTO result = costDetailService.getCostDetailById(id);
         return Result.success(result);
     }

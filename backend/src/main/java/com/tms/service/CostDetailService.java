@@ -20,7 +20,7 @@ public interface CostDetailService {
      * @param request 计算请求
      * @return 费用明细列表
      */
-    List List<CostDetailDTO> calculateCost(CostCalculateRequest request);
+    List<CostDetailDTO> calculateCost(CostCalculateRequest request);
 
     /**
      * 根据运单ID查询费用明细
@@ -28,7 +28,7 @@ public interface CostDetailService {
      * @param waybillId 运单ID
      * @return 费用明细列表
      */
-    List List<CostDetailDTO> getCostDetailsByWaybillId(Long waybillId);
+    List<CostDetailDTO> getCostDetailsByWaybillId(Long waybillId);
 
     /**
      * 分页查询费用明细
@@ -39,7 +39,7 @@ public interface CostDetailService {
      * @param pageSize  每页大小
      * @return 费用明细分页列表
      */
-    PageResultResult<CostDetailDTO> getCostDetailList(String waybillNo, Integer costType, int pageNum, int pageSize);
+    PageResult<CostDetailDTO> getCostDetailList(String waybillNo, Integer costType, int pageNum, int pageSize);
 
     /**
      * 创建费用明细

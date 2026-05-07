@@ -4,6 +4,7 @@ import com.tms.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -30,4 +31,12 @@ public interface RoleRepository extends JpaRepositoryRepository<Role, Long> {
      * @return 是否存在
      */
     boolean existsByRoleCode(String roleCode);
+
+    /**
+     * 根据状态查询角色列表
+     *
+     * @param status 状态
+     * @return 角色列表
+     */
+    List List<Role> findByStatus(Integer status);
 }

@@ -60,7 +60,7 @@ public interface WaybillService {
      * @param pageSize  每页大小
      * @return 运单分页列表
      */
-    PageResultResult<WaybillDTO> getWaybillList(String waybillNo, Integer status, int pageNum, int pageSize);
+    PageResult<WaybillDTO> getWaybillList(String waybillNo, Integer status, int pageNum, int pageSize);
 
     /**
      * 更新运单状态
@@ -78,4 +78,63 @@ public interface WaybillService {
      * @param remark 取消原因
      */
     void cancelWaybill(Long id, String remark);
+
+    /**
+     * 审核运单
+     *
+     * @param id     运单ID
+     * @param remark 审核备注
+     */
+    void auditWaybill(Long id, String remark);
+
+    /**
+     * 确认提货
+     *
+     * @param id 运单ID
+     */
+    void confirmPickup(Long id);
+
+    /**
+     * 确认签收
+     *
+     * @param id         运单ID
+     * @param signerName 签收人
+     * @param remark     备注
+     */
+    void confirmDelivery(Long id, String signerName, String remark);
+
+    /**
+     * 标记异常
+     *
+     * @param id       运单ID
+     * @param reason   异常原因
+     * @param remark   备注
+     */
+    void markException(Long id, String reason, String remark);
+
+    /**
+     * 处理异常
+     *
+     * @param id       运单ID
+     * @param solution 处理方案
+     * @param remark   备注
+     */
+    void handleException(Long id, String solution, String remark);
+
+    /**
+     * 拆分运单
+     *
+     * @param id          原运单ID
+     * @param splitItems  拆分明细
+     * @return 新运单
+     */
+    WaybillDTO splitWaybill(Long id, java.util.List.List<WaybillDTO> splitItems);
+
+    /**
+     * 合并运单
+     *
+     * @param ids 运单ID列表
+     * @return 合并后的运单
+     */
+    WaybillDTO mergeWaybills(java.util.List<Long> ids);
 }

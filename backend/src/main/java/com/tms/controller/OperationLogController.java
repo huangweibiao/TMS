@@ -40,14 +40,14 @@ public class OperationLogController {
      * @return 操作日志分页列表
      */
     @GetMapping
-    public Result Result<PageResultResult<OperationLog>> getOperationLogList(
+    public Result<PageResult<OperationLog>> getOperationLogList(
             @RequestParam(required = false) String username,
             @RequestParam(required = false) String operationType,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime startTime,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime endTime,
             @RequestParam(defaultValue = "1") int pageNum,
             @RequestParam(defaultValue = "10") int pageSize) {
-        PageResultResult<OperationLog> result = operationLogService.getOperationLogList(
+        PageResult<OperationLog> result = operationLogService.getOperationLogList(
                 username, operationType, startTime, endTime, pageNum, pageSize);
         return Result.success(result);
     }
@@ -59,7 +59,7 @@ public class OperationLogController {
      * @return 操作日志
      */
     @GetMapping("/{id}")
-    public Result Result<OperationLog> getOperationLogById(@PathVariable Long id) {
+    public Result<OperationLog> getOperationLogById(@PathVariable Long id) {
         OperationLog result = operationLogService.getOperationLogById(id);
         return Result.success(result);
     }
@@ -99,3 +99,4 @@ public class OperationLogController {
         return Result.success("清空成功");
     }
 }
+

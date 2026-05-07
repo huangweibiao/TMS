@@ -86,7 +86,7 @@ public class VehicleController {
      * @return 车辆分页列表
      */
     @GetMapping
-    public Result Result<PageResult<VehicleDTO>> getVehicleList(
+    public Result<PageResult<VehicleDTO>> getVehicleList(
             @RequestParam(required = false) String plateNumber,
             @RequestParam(required = false) Integer status,
             @RequestParam(defaultValue = "1") int pageNum,
@@ -106,3 +106,4 @@ public class VehicleController {
         return Result.success(result);
     }
 }
+

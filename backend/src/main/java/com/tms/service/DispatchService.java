@@ -55,7 +55,7 @@ public interface DispatchService {
      * @param pageSize   每页大小
      * @return 调度单分页列表
      */
-    PageResultResult<DispatchDTO> getDispatchList(String dispatchNo, Integer status, int pageNum, int pageSize);
+    PageResult<DispatchDTO> getDispatchList(String dispatchNo, Integer status, int pageNum, int pageSize);
 
     /**
      * 确认发车

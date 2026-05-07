@@ -32,9 +32,9 @@ public class CustomerController {
      * @return 创建结果
      */
     @PostMapping
-    public Result Result<CustomerDTO> createCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
+    public Result<CustomerDTO> createCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
         CustomerDTO result = customerService.createCustomer(customerDTO);
-        return Result.success("创建成功", result);
+        return Result.success(result);
     }
 
     /**
@@ -45,9 +45,9 @@ public class CustomerController {
      * @return 更新结果
      */
     @PutMapping("/{id}")
-    public Result Result<CustomerDTO> updateCustomer(@PathVariable Long id, @Valid @RequestBody CustomerDTO customerDTO) {
+    public Result<CustomerDTO> updateCustomer(@PathVariable Long id, @Valid @RequestBody CustomerDTO customerDTO) {
         CustomerDTO result = customerService.updateCustomer(id, customerDTO);
-        return Result.success("更新成功", result);
+        return Result.success(result);
     }
 
     /**
@@ -59,7 +59,7 @@ public class CustomerController {
     @DeleteMapping("/{id}")
     public Result<Void> deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomer(id);
-        return Result.success("删除成功");
+        return Result.success();
     }
 
     /**
@@ -69,7 +69,7 @@ public class CustomerController {
      * @return 客户信息
      */
     @GetMapping("/{id}")
-    public Result Result<CustomerDTO> getCustomerById(@PathVariable Long id) {
+    public Result<CustomerDTO> getCustomerById(@PathVariable Long id) {
         CustomerDTO result = customerService.getCustomerById(id);
         return Result.success(result);
     }
@@ -84,12 +84,13 @@ public class CustomerController {
      * @return 客户分页列表
      */
     @GetMapping
-    public Result Result<PageResultResult<CustomerDTO>> getCustomerList(
+    public Result<PageResult<CustomerDTO>> getCustomerList(
             @RequestParam(required = false) String customerName,
             @RequestParam(required = false) Integer status,
             @RequestParam(defaultValue = "1") int pageNum,
             @RequestParam(defaultValue = "10") int pageSize) {
-        PageResultResult<CustomerDTO> result = customerService.getCustomerList(customerName, status, pageNum, pageSize);
+        PageResult<CustomerDTO> result = customerService.getCustomerList(customerName, status, pageNum, pageSize);
         return Result.success(result);
     }
 }
+

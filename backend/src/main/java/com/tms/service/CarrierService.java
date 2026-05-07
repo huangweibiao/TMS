@@ -52,5 +52,5 @@ public interface CarrierService {
      * @param pageSize    每页大小
      * @return 承运商分页列表
      */
-    PageResultResult<CarrierDTO> getCarrierList(String carrierName, Integer status, int pageNum, int pageSize);
+    PageResult<CarrierDTO> getCarrierList(String carrierName, Integer status, int pageNum, int pageSize);
 }

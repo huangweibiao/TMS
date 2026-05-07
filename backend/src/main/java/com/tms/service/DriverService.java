@@ -62,7 +62,7 @@ public interface DriverService {
      * @param pageSize   每页大小
      * @return 司机分页列表
      */
-    PageResultResult<DriverDTO> getDriverList(String driverName, Integer status, int pageNum, int pageSize);
+    PageResult<DriverDTO> getDriverList(String driverName, Integer status, int pageNum, int pageSize);
 
     /**
      * 获取可用司机列表

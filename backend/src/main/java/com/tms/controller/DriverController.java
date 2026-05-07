@@ -34,7 +34,7 @@ public class DriverController {
      * @return 创建结果
      */
     @PostMapping
-    public Result Result<DriverDTO> createDriver(@Valid @RequestBody DriverDTO driverDTO) {
+    public Result<DriverDTO> createDriver(@Valid @RequestBody DriverDTO driverDTO) {
         DriverDTO result = driverService.createDriver(driverDTO);
         return Result.success("创建成功", result);
     }
@@ -47,7 +47,7 @@ public class DriverController {
      * @return 更新结果
      */
     @PutMapping("/{id}")
-    public Result Result<DriverDTO> updateDriver(@PathVariable Long id, @Valid @RequestBody DriverDTO driverDTO) {
+    public Result<DriverDTO> updateDriver(@PathVariable Long id, @Valid @RequestBody DriverDTO driverDTO) {
         DriverDTO result = driverService.updateDriver(id, driverDTO);
         return Result.success("更新成功", result);
     }
@@ -71,7 +71,7 @@ public class DriverController {
      * @return 司机信息
      */
     @GetMapping("/{id}")
-    public Result Result<DriverDTO> getDriverById(@PathVariable Long id) {
+    public Result<DriverDTO> getDriverById(@PathVariable Long id) {
         DriverDTO result = driverService.getDriverById(id);
         return Result.success(result);
     }
@@ -86,12 +86,12 @@ public class DriverController {
      * @return 司机分页列表
      */
     @GetMapping
-    public Result Result<PageResultResult<DriverDTO>> getDriverList(
+    public Result<PageResult<DriverDTO>> getDriverList(
             @RequestParam(required = false) String driverName,
             @RequestParam(required = false) Integer status,
             @RequestParam(defaultValue = "1") int pageNum,
             @RequestParam(defaultValue = "10") int pageSize) {
-        PageResultResult<DriverDTO> result = driverService.getDriverList(driverName, status, pageNum, pageSize);
+        PageResult<DriverDTO> result = driverService.getDriverList(driverName, status, pageNum, pageSize);
         return Result.success(result);
     }
 
@@ -101,8 +101,9 @@ public class DriverController {
      * @return 可用司机列表
      */
     @GetMapping("/available")
-    public Result<List<List<DriverDTO>> getAvailableDrivers() {
-        List List<DriverDTO> result = driverService.getAvailableDrivers();
+    public Result<List<DriverDTO>> getAvailableDrivers() {
+        List<DriverDTO> result = driverService.getAvailableDrivers();
         return Result.success(result);
     }
 }
+

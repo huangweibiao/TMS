@@ -52,5 +52,5 @@ public interface WarehouseService {
      * @param pageSize      每页大小
      * @return 仓库分页列表
      */
-    PageResultResult<WarehouseDTO> getWarehouseList(String warehouseName, Integer status, int pageNum, int pageSize);
+    PageResult<WarehouseDTO> getWarehouseList(String warehouseName, Integer status, int pageNum, int pageSize);
 }

@@ -52,5 +52,5 @@ public interface CustomerService {
      * @param pageSize     每页大小
      * @return 客户分页列表
      */
-    PageResultResult<CustomerDTO> getCustomerList(String customerName, Integer status, int pageNum, int pageSize);
+    PageResult<CustomerDTO> getCustomerList(String customerName, Integer status, int pageNum, int pageSize);
 }

@@ -32,9 +32,9 @@ public class CarrierController {
      * @return 创建结果
      */
     @PostMapping
-    public Result Result<CarrierDTO> createCarrier(@Valid @RequestBody CarrierDTO carrierDTO) {
+    public Result<CarrierDTO> createCarrier(@Valid @RequestBody CarrierDTO carrierDTO) {
         CarrierDTO result = carrierService.createCarrier(carrierDTO);
-        return Result.success("创建成功", result);
+        return Result.success(result);
     }
 
     /**
@@ -45,9 +45,9 @@ public class CarrierController {
      * @return 更新结果
      */
     @PutMapping("/{id}")
-    public Result Result<CarrierDTO> updateCarrier(@PathVariable Long id, @Valid @RequestBody CarrierDTO carrierDTO) {
+    public Result<CarrierDTO> updateCarrier(@PathVariable Long id, @Valid @RequestBody CarrierDTO carrierDTO) {
         CarrierDTO result = carrierService.updateCarrier(id, carrierDTO);
-        return Result.success("更新成功", result);
+        return Result.success(result);
     }
 
     /**
@@ -59,7 +59,7 @@ public class CarrierController {
     @DeleteMapping("/{id}")
     public Result<Void> deleteCarrier(@PathVariable Long id) {
         carrierService.deleteCarrier(id);
-        return Result.success("删除成功");
+        return Result.success();
     }
 
     /**
@@ -69,7 +69,7 @@ public class CarrierController {
      * @return 承运商信息
      */
     @GetMapping("/{id}")
-    public Result Result<CarrierDTO> getCarrierById(@PathVariable Long id) {
+    public Result<CarrierDTO> getCarrierById(@PathVariable Long id) {
         CarrierDTO result = carrierService.getCarrierById(id);
         return Result.success(result);
     }
@@ -84,12 +84,12 @@ public class CarrierController {
      * @return 承运商分页列表
      */
     @GetMapping
-    public Result Result<PageResultResult<CarrierDTO>> getCarrierList(
+    public Result<PageResult<CarrierDTO>> getCarrierList(
             @RequestParam(required = false) String carrierName,
             @RequestParam(required = false) Integer status,
             @RequestParam(defaultValue = "1") int pageNum,
             @RequestParam(defaultValue = "10") int pageSize) {
-        PageResultResult<CarrierDTO> result = carrierService.getCarrierList(carrierName, status, pageNum, pageSize);
+        PageResult<CarrierDTO> result = carrierService.getCarrierList(carrierName, status, pageNum, pageSize);
         return Result.success(result);
     }
 }

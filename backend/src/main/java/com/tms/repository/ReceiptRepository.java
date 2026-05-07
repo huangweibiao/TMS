@@ -4,6 +4,8 @@ import com.tms.entity.Receipt;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -41,4 +43,13 @@ public interface ReceiptRepository extends JpaRepositoryRepository<Receipt, Long
      * @return 回单分页列表
      */
     Page Page<Receipt> findByStatus(Integer status, Pageable pageable);
+
+    /**
+     * 查询指定前缀的最大回单号
+     *
+     * @param prefix 前缀
+     * @return 最大回单号
+     */
+    @Query("SELECT MAX(r.receiptNo) FROM Receipt r WHERE r.receiptNo LIKE :prefix%")
+    String findMaxReceiptNoByPrefix(@Param("prefix") String prefix);
 }

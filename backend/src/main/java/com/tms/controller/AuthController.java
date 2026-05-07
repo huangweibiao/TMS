@@ -62,7 +62,7 @@ public class AuthController {
      * @return 登录响应
      */
     @PostMapping("/login")
-    public Result Result<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
+    public Result<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsername(),
@@ -98,7 +98,7 @@ public class AuthController {
         response.setRealName(user.getRealName());
         response.setRoles(roles);
 
-        return Result.success("登录成功", response);
+        return Result.success(response);
     }
 
     /**
@@ -109,6 +109,7 @@ public class AuthController {
     @PostMapping("/logout")
     public Result<Void> logout() {
         SecurityContextHolder.clearContext();
-        return Result.success("登出成功");
+        return Result.success();
     }
 }
+

@@ -25,7 +25,7 @@ public interface OperationLogService {
      * @param pageSize   每页大小
      * @return 操作日志分页列表
      */
-    PageResultResult<OperationLog> getOperationLogList(String username, String operationType,
+    PageResult<OperationLog> getOperationLogList(String username, String operationType,
                                                   LocalDateTime startTime, LocalDateTime endTime,
                                                   int pageNum, int pageSize);
 

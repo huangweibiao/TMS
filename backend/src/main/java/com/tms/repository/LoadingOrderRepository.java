@@ -2,6 +2,8 @@ package com.tms.repository;
 
 import com.tms.entity.LoadingOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -31,4 +33,13 @@ public interface LoadingOrderRepository extends JpaRepositoryRepository<LoadingO
      * @return 装货单列表
      */
     List List<LoadingOrder> findByDispatchId(Long dispatchId);
+
+    /**
+     * 查询指定前缀的最大装货单号
+     *
+     * @param prefix 前缀
+     * @return 最大装货单号
+     */
+    @Query("SELECT MAX(l.loadingNo) FROM LoadingOrder l WHERE l.loadingNo LIKE :prefix%")
+    String findMaxLoadingNoByPrefix(@Param("prefix") String prefix);
 }

@@ -31,4 +31,20 @@ public interface PermissionRepository extends JpaRepositoryRepository<Permission
      * @return 权限列表
      */
     List List<Permission> findByParentIdOrderBySortOrderAsc(Long parentId);
+
+    /**
+     * 根据权限类型查询权限列表
+     *
+     * @param permissionType 权限类型
+     * @return 权限列表
+     */
+    List List<Permission> findByPermissionType(Integer permissionType);
+
+    /**
+     * 根据状态查询权限列表
+     *
+     * @param status 状态
+     * @return 权限列表
+     */
+    List List<Permission> findByStatus(Integer status);
 }
