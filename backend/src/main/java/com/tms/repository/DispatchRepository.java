@@ -4,6 +4,7 @@ import com.tms.entity.Dispatch;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -52,4 +53,22 @@ public interface DispatchRepository extends JpaRepositoryRepository<Dispatch, Lo
      * @return 调度单分页列表
      */
     Page Page<Dispatch> findByDispatchNoContainingAndDispatchStatus(String dispatchNo, Integer status, Pageable pageable);
+
+    /**
+     * 根据状态查询调度单
+     *
+     * @param status   状态
+     * @param pageable 分页参数
+     * @return 调度单分页列表
+     */
+    Page Page<Dispatch> findByDispatchStatus(Integer status, Pageable pageable);
+
+    /**
+     * 查询指定前缀的最大调度单号
+     *
+     * @param prefix 前缀
+     * @return 最大调度单号
+     */
+    @Query("SELECT MAX(d.dispatchNo) FROM Dispatch d WHERE d.dispatchNo LIKE ?1%")
+    String findMaxDispatchNoByPrefix(String prefix);
 }

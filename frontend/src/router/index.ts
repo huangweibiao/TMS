@@ -85,6 +85,18 @@ const routes = [
         name: 'Role',
         component: () => import('@/views/system/role/index.vue'),
         meta: { title: '角色管理', icon: 'Key' }
+      },
+      {
+        path: 'system/log',
+        name: 'Log',
+        component: () => import('@/views/system/log/index.vue'),
+        meta: { title: '操作日志', icon: 'Document' }
+      },
+      {
+        path: 'report',
+        name: 'Report',
+        component: () => import('@/views/report/index.vue'),
+        meta: { title: '报表中心', icon: 'TrendCharts' }
       }
     ]
   }

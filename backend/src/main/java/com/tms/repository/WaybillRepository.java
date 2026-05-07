@@ -3,7 +3,10 @@ package com.tms.repository;
 import com.tms.entity.Waybill;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -42,4 +45,31 @@ public interface WaybillRepository extends JpaRepositoryRepository<Waybill, Long
      * @return 是否存在
      */
     boolean existsByWaybillNo(String waybillNo);
+
+    /**
+     * 根据运单号前缀模糊查询
+     *
+     * @param waybillNoPrefix 运单号前缀
+     * @param pageable        分页参数
+     * @return 运单分页列表
+     */
+    Page Page<Waybill> findByWaybillNoContaining(String waybillNoPrefix, Pageable pageable);
+
+    /**
+     * 根据状态查询运单
+     *
+     * @param status   状态
+     * @param pageable 分页参数
+     * @return 运单分页列表
+     */
+    Page Page<Waybill> findByWaybillStatus(Integer status, Pageable pageable);
+
+    /**
+     * 查询指定前缀的最大运单号
+     *
+     * @param prefix 前缀
+     * @return 最大运单号
+     */
+    @Query("SELECT MAX(w.waybillNo) FROM Waybill w WHERE w.waybillNo LIKE ?1%")
+    String findMaxWaybillNoByPrefix(String prefix);
 }

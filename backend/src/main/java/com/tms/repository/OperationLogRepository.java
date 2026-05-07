@@ -27,6 +27,15 @@ public interface OperationLogRepository extends JpaRepositoryRepository<Operatio
     Page Page<OperationLog> findByUserIdOrderByCreateTimeDesc(Long userId, Pageable pageable);
 
     /**
+     * 根据用户名模糊查询操作日志
+     *
+     * @param username 用户名
+     * @param pageable 分页参数
+     * @return 操作日志分页列表
+     */
+    Page Page<OperationLog> findByUsernameContainingOrderByCreateTimeDesc(String username, Pageable pageable);
+
+    /**
      * 根据时间范围分页查询操作日志
      *
      * @param startTime 开始时间
@@ -35,4 +44,12 @@ public interface OperationLogRepository extends JpaRepositoryRepository<Operatio
      * @return 操作日志分页列表
      */
     Page Page<OperationLog> findByCreateTimeBetweenOrderByCreateTimeDesc(LocalDateTime startTime, LocalDateTime endTime, Pageable pageable);
+
+    /**
+     * 查询所有操作日志（按时间倒序）
+     *
+     * @param pageable 分页参数
+     * @return 操作日志分页列表
+     */
+    Page Page<OperationLog> findAllByOrderByCreateTimeDesc(Pageable pageable);
 }

@@ -107,26 +107,53 @@ export interface Warehouse {
   status: number
 }
 
+// 运单明细
+export interface WaybillDetail {
+  id: number
+  waybillId: number
+  skuCode?: string
+  skuName?: string
+  quantity: number
+  unit: string
+  unitWeight?: number
+  unitVolume?: number
+  unitPrice?: number
+  totalPrice?: number
+  remark?: string
+}
+
 // 运单
 export interface Waybill {
   id: number
   waybillNo: string
-  orderNo: string
+  orderNo?: string
   customerId: number
   customerName?: string
-  productType: string
-  totalWeight: number
-  totalVolume: number
-  totalQuantity: number
+  carrierId?: number
+  productType?: string
+  totalWeight?: number
+  totalVolume?: number
+  totalQuantity?: number
+  goodsValue?: number
+  isHazardous?: number
+  isFragile?: number
+  needTemperature?: number
+  minTemp?: number
+  maxTemp?: number
   shipperName: string
   shipperPhone: string
   shipperAddress: string
   consigneeName: string
   consigneePhone: string
   consigneeAddress: string
-  expectPickupTime: string
-  expectDeliveryTime: string
+  expectPickupTime?: string
+  expectDeliveryTime?: string
+  actualPickupTime?: string
+  actualDeliveryTime?: string
   waybillStatus: number
-  remark: string
-  createTime: string
+  remark?: string
+  createBy?: string
+  createTime?: string
+  updateTime?: string
+  details?: WaybillDetail[]
 }
