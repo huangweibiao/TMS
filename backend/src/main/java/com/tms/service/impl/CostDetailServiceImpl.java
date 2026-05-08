@@ -204,6 +204,11 @@ public class CostDetailServiceImpl implements CostDetailService {
     private BigDecimal calculateFreight(Waybill waybill, CostCalculateRequest request) {
         BigDecimal amount = BigDecimal.ZERO;
 
+        // 优先使用阶梯价格计费
+        if (request.getTieredPricing() != null && request.getTieredPricing().getTiers() != null) {
+            return calculateTieredFreight(waybill, request.getTieredPricing());
+        }
+
         switch (request.getCalculateType()) {
             case 1: // 按重量计费
                 if (waybill.getTotalWeight() != null && request.getUnitPrice() != null) {
@@ -225,6 +230,78 @@ public class CostDetailServiceImpl implements CostDetailService {
         }
 
         return amount;
+    }
+
+    /**
+     * 计算阶梯价格运费
+     *
+     * @param waybill 运单
+     * @param tieredPricing 阶梯价格配置
+     * @return 运费金额
+     */
+    private BigDecimal calculateTieredFreight(Waybill waybill, CostCalculateRequest.TieredPricing tieredPricing) {
+        if (tieredPricing.getTiers() == null || tieredPricing.getTiers().isEmpty()) {
+            throw new BusinessException("阶梯价格配置不能为空");
+        }
+
+        // 获取计费基数
+        BigDecimal baseValue;
+        switch (tieredPricing.getTierType()) {
+            case 1: // 按重量
+                baseValue = waybill.getTotalWeight();
+                if (baseValue == null) {
+                    throw new BusinessException("运单重量不能为空");
+                }
+                break;
+            case 2: // 按体积
+                baseValue = waybill.getTotalVolume();
+                if (baseValue == null) {
+                    throw new BusinessException("运单体积不能为空");
+                }
+                break;
+            case 3: // 按里程
+                baseValue = waybill.getTotalVolume(); // 这里应该是里程，但运单没有里程字段
+                throw new BusinessException("阶梯计费暂不支持按里程计费");
+            default:
+                throw new BusinessException("不支持的阶梯类型");
+        }
+
+        BigDecimal totalAmount = BigDecimal.ZERO;
+        BigDecimal remainingValue = baseValue;
+
+        // 按阶梯区间计算费用
+        for (CostCalculateRequest.TieredPricing.Tier tier : tieredPricing.getTiers()) {
+            if (remainingValue.compareTo(BigDecimal.ZERO) <= 0) {
+                break;
+            }
+
+            // 计算该阶梯区间的有效值
+            BigDecimal tierMin = tier.getMinValue() != null ? tier.getMinValue() : BigDecimal.ZERO;
+            BigDecimal tierMax = tier.getMaxValue();
+            BigDecimal tierUnitPrice = tier.getUnitPrice();
+
+            if (tierUnitPrice == null) {
+                continue;
+            }
+
+            // 计算该阶梯区间内的数量
+            BigDecimal tierRange;
+            if (tierMax == null) {
+                // 最后一档，无上限
+                tierRange = remainingValue;
+            } else {
+                BigDecimal tierCapacity = tierMax.subtract(tierMin);
+                tierRange = remainingValue.min(tierCapacity);
+            }
+
+            if (tierRange.compareTo(BigDecimal.ZERO) > 0) {
+                BigDecimal tierAmount = tierRange.multiply(tierUnitPrice);
+                totalAmount = totalAmount.add(tierAmount);
+                remainingValue = remainingValue.subtract(tierRange);
+            }
+        }
+
+        return totalAmount;
     }
 
     /**

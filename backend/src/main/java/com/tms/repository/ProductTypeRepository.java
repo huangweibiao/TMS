@@ -2,6 +2,7 @@ package com.tms.repository;
 
 import com.tms.entity.ProductType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.Optional;
  * @version 1.0.0
  */
 @Repository
-public interface ProductTypeRepository extends JpaRepository<ProductType, Long> {
+public interface ProductTypeRepository extends JpaRepository<ProductType, Long>, JpaSpecificationExecutor<ProductType> {
 
     /**
      * 根据类型编码查询
@@ -48,4 +49,12 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Long> 
      * @return 产品类型列表
      */
     List<ProductType> findByParentIdAndStatus(Long parentId, Integer status);
+
+    /**
+     * 检查类型编码是否存在
+     *
+     * @param typeCode 类型编码
+     * @return 是否存在
+     */
+    boolean existsByTypeCode(String typeCode);
 }

@@ -2,6 +2,7 @@ package com.tms.dto;
 
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 费用计算请求DTO
@@ -38,6 +39,11 @@ public class CostCalculateRequest {
      * 附加费用
      */
     private AdditionalCost additionalCost;
+
+    /**
+     * 阶梯价格配置（用于阶梯计费）
+     */
+    private TieredPricing tieredPricing;
 
     /**
      * 备注
@@ -83,6 +89,14 @@ public class CostCalculateRequest {
 
     public void setAdditionalCost(AdditionalCost additionalCost) {
         this.additionalCost = additionalCost;
+    }
+
+    public TieredPricing getTieredPricing() {
+        return tieredPricing;
+    }
+
+    public void setTieredPricing(TieredPricing tieredPricing) {
+        this.tieredPricing = tieredPricing;
     }
 
     public String getRemark() {
@@ -167,6 +181,101 @@ public class CostCalculateRequest {
          */
         public BigDecimal getTotal() {
             return loadingFee.add(insuranceFee).add(waitingFee).add(tollFee).add(otherFee);
+        }
+    }
+
+    /**
+     * 阶梯价格配置
+     */
+    public static class TieredPricing {
+
+        /**
+         * 阶梯类型：1-按重量, 2-按体积, 3-按里程
+         */
+        private Integer tierType;
+
+        /**
+         * 阶梯区间列表
+         */
+        private List<Tier> tiers;
+
+        public Integer getTierType() {
+            return tierType;
+        }
+
+        public void setTierType(Integer tierType) {
+            this.tierType = tierType;
+        }
+
+        public List<Tier> getTiers() {
+            return tiers;
+        }
+
+        public void setTiers(List<Tier> tiers) {
+            this.tiers = tiers;
+        }
+
+        /**
+         * 阶梯区间
+         */
+        public static class Tier {
+            /**
+             * 区间起始值（包含）
+             */
+            private BigDecimal minValue;
+
+            /**
+             * 区间结束值（不包含，null表示无穷大）
+             */
+            private BigDecimal maxValue;
+
+            /**
+             * 该区间单价
+             */
+            private BigDecimal unitPrice;
+
+            public Tier() {
+            }
+
+            public Tier(BigDecimal minValue, BigDecimal maxValue, BigDecimal unitPrice) {
+                this.minValue = minValue;
+                this.maxValue = maxValue;
+                this.unitPrice = unitPrice;
+            }
+
+            public BigDecimal getMinValue() {
+                return minValue;
+            }
+
+            public void setMinValue(BigDecimal minValue) {
+                this.minValue = minValue;
+            }
+
+            public BigDecimal getMaxValue() {
+                return maxValue;
+            }
+
+            public void setMaxValue(BigDecimal maxValue) {
+                this.maxValue = maxValue;
+            }
+
+            public BigDecimal getUnitPrice() {
+                return unitPrice;
+            }
+
+            public void setUnitPrice(BigDecimal unitPrice) {
+                this.unitPrice = unitPrice;
+            }
+
+            /**
+             * 检查值是否在该区间内
+             */
+            public boolean contains(BigDecimal value) {
+                if (value == null) return false;
+                boolean aboveMin = minValue == null || value.compareTo(minValue) >= 0;
+                boolean belowMax = maxValue == null || value.compareTo(maxValue) < 0;
+                return aboveMin && belowMax;
+            }
         }
     }
 }
