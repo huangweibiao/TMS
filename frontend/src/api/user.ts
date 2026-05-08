@@ -8,7 +8,7 @@ export const userApi = {
     status?: number
     pageNum?: number
     pageSize?: number
-  }): Promise<Result<Result<PageResult<User>>> {
+  }): Promise<Result<PageResult<User>>> {
     return request.get('/api/user/list', { params })
   },
 

@@ -9,7 +9,7 @@ export const vehicleApi = {
     status?: number
     pageNum?: number
     pageSize?: number
-  }): Promise<Result<Result<PageResult<Vehicle>>> {
+  }): Promise<Result<PageResult<Vehicle>>> {
     return request.get('/v1/vehicles', { params })
   },
 

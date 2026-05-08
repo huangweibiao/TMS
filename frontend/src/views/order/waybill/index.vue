@@ -56,7 +56,7 @@ import { ref, reactive, onMounted } from 'vue'
 import type { Waybill } from '@/types'
 
 const loading = ref(false)
-const tableData = ref ref<Waybill[]>([])
+const tableData = ref<Waybill[]>([])
 
 const searchForm = reactive({
   waybillNo: '',

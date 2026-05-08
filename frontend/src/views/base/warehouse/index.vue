@@ -42,7 +42,7 @@ import { ref, onMounted } from 'vue'
 import type { Warehouse } from '@/types'
 
 const loading = ref(false)
-const tableData = ref ref<Warehouse[]>([])
+const tableData = ref<Warehouse[]>([])
 
 const fetchData = async () => {
   loading.value = true

@@ -122,7 +122,7 @@ import type { Customer } from '@/types'
 import type { FormInstance, FormRules } from 'element-plus'
 
 const loading = ref(false)
-const tableData = ref ref<Customer[]>([])
+const tableData = ref<Customer[]>([])
 const total = ref(0)
 const pageNum = ref(1)
 const pageSize = ref(10)
@@ -134,11 +134,11 @@ const searchForm = reactive({
 
 const dialogVisible = ref(false)
 const dialogTitle = ref('新增客户')
-const formRef = ref ref<FormInstance>()
+const formRef = ref<FormInstance>()
 const isEdit = ref(false)
 const currentId = ref<number | null>(null)
 
-const form = reactive reactive<Partial<Partial<Customer>>({
+const form = reactive<Partial<Customer>>({
   customerCode: '',
   customerName: '',
   shortName: '',

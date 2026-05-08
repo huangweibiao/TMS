@@ -36,7 +36,7 @@ import { ref, onMounted } from 'vue'
 import type { Driver } from '@/types'
 
 const loading = ref(false)
-const tableData = ref ref<Driver[]>([])
+const tableData = ref<Driver[]>([])
 
 const fetchData = async () => {
   loading.value = true

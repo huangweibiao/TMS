@@ -26,12 +26,12 @@ export const logApi = {
     endTime?: string
     pageNum?: number
     pageSize?: number
-  }): Promise<Result<Result<PageResultResult<OperationLog>>> {
+  }): Promise<Result<PageResult<OperationLog>>> {
     return request.get('/v1/logs', { params })
   },
 
   // 根据ID查询操作日志
-  getById(id: number): Promise<Result<Result<OperationLog>> {
+  getById(id: number): Promise<Result<OperationLog>> {
     return request.get(`/v1/logs/${id}`)
   },
 

@@ -9,27 +9,27 @@ export const driverApi = {
     status?: number
     pageNum?: number
     pageSize?: number
-  }): Promise<Result<Result<PageResultResult<Driver>>> {
+  }): Promise<Result<PageResult<Driver>>> {
     return request.get('/v1/drivers', { params })
   },
 
   // 获取司机详情
-  getById(id: number): Promise<Result<Result<Driver>> {
+  getById(id: number): Promise<Result<Driver>> {
     return request.get(`/v1/drivers/${id}`)
   },
 
   // 获取可用司机列表
-  getAvailable(): Promise<Result<Result<Driver[]>> {
+  getAvailable(): Promise<Result<Driver[]>> {
     return request.get('/v1/drivers/available')
   },
 
   // 创建司机
-  create(data: Partial Partial<Driver>): Promise<Result<Result<Driver>> {
+  create(data: Partial<Driver>): Promise<Result<Driver>> {
     return request.post('/v1/drivers', data)
   },
 
   // 更新司机
-  update(id: number, data: Partial Partial<Driver>): Promise<Result<Result<Driver>> {
+  update(id: number, data: Partial<Driver>): Promise<Result<Driver>> {
     return request.put(`/v1/drivers/${id}`, data)
   },
 

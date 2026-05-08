@@ -9,27 +9,27 @@ export const settlementApi = {
     status?: number
     pageNum?: number
     pageSize?: number
-  }): Promise<Result<Result<PageResultResult<Settlement>>> {
+  }): Promise<Result<PageResult<Settlement>>> {
     return request.get('/api/settlement/list', { params })
   },
 
   // 获取结算单详情
-  getById(id: number): Promise<Result<Result<Settlement>> {
+  getById(id: number): Promise<Result<Settlement>> {
     return request.get(`/api/settlement/${id}`)
   },
 
   // 根据结算单号查询
-  getByNo(settlementNo: string): Promise<Result<Result<Settlement>> {
+  getByNo(settlementNo: string): Promise<Result<Settlement>> {
     return request.get(`/api/settlement/by-no/${settlementNo}`)
   },
 
   // 创建结算单
-  create(data: Partial Partial<Settlement>): Promise<Result<Result<Settlement>> {
+  create(data: Partial<Settlement>): Promise<Result<Settlement>> {
     return request.post('/api/settlement', data)
   },
 
   // 更新结算单
-  update(id: number, data: Partial Partial<Settlement>): Promise<Result<Result<Settlement>> {
+  update(id: number, data: Partial<Settlement>): Promise<Result<Settlement>> {
     return request.put(`/api/settlement/${id}`, data)
   },
 
@@ -39,17 +39,17 @@ export const settlementApi = {
   },
 
   // 确认结算单
-  confirm(id: number): Promise<Result<Result<Settlement>> {
+  confirm(id: number): Promise<Result<Settlement>> {
     return request.post(`/api/settlement/${id}/confirm`)
   },
 
   // 付款
-  makePayment(id: number, amount: number): Promise<Result<Result<Settlement>> {
+  makePayment(id: number, amount: number): Promise<Result<Settlement>> {
     return request.post(`/api/settlement/${id}/payment`, { amount })
   },
 
   // 取消结算单
-  cancel(id: number, reason?: string): Promise<Result<Result<Settlement>> {
+  cancel(id: number, reason?: string): Promise<Result<Settlement>> {
     return request.post(`/api/settlement/${id}/cancel`, { reason })
   },
 

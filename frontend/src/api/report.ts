@@ -24,7 +24,7 @@ export const reportApi = {
   getWaybillStatistics(params: {
     startDate: string
     endDate: string
-  }): Promise<Result<Result<ReportData[]>> {
+  }): Promise<Result<ReportData[]>> {
     return request.get('/v1/reports/waybill-stat', { params })
   },
 
@@ -32,7 +32,7 @@ export const reportApi = {
   getCostAnalysis(params: {
     startDate: string
     endDate: string
-  }): Promise<Result<Result<{
+  }): Promise<Result<{
     costByType: Record<number, number>
     totalIncome: number
     totalExpense: number
@@ -45,7 +45,7 @@ export const reportApi = {
   getTransportEfficiency(params: {
     startDate: string
     endDate: string
-  }): Promise<Result<Result<{
+  }): Promise<Result<{
     totalDispatches: number
     totalDistance: number
     avgTransportTime: number
@@ -58,7 +58,7 @@ export const reportApi = {
   getVehicleUtilization(params: {
     startDate: string
     endDate: string
-  }): Promise<Result<Result<{
+  }): Promise<Result<{
     totalVehicles: number
     availableVehicles: number
     inTransitVehicles: number
@@ -72,7 +72,7 @@ export const reportApi = {
   getExceptionStatistics(params: {
     startDate: string
     endDate: string
-  }): Promise<Result<Result<{
+  }): Promise<Result<{
     totalExceptions: number
     exceptionByType: Record<number, number>
     handledCount: number

@@ -112,12 +112,12 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { logApi, type OperationLog } from '@/api/log'
 
 const loading = ref(false)
-const tableData = ref ref<OperationLog[]>([])
+const tableData = ref<OperationLog[]>([])
 const total = ref(0)
 const pageNum = ref(1)
 const pageSize = ref(10)
 const dialogVisible = ref(false)
-const currentLog = ref ref<OperationLog | null>(null)
+const currentLog = ref<OperationLog | null>(null)
 
 const searchForm = reactive({
   username: '',

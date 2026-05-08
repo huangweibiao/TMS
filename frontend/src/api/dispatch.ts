@@ -31,22 +31,22 @@ export const dispatchApi = {
     vehicleId: number
     driverId: number
     strategy?: number
-  }): Promise<Result<Result<Dispatch>> {
+  }): Promise<Result<Dispatch>> {
     return request.post('/v1/dispatches/assign', null, { params })
   },
 
   // 手动创建调度单
-  create(data: Partial Partial<Dispatch>): Promise<Result<Result<Dispatch>> {
+  create(data: Partial<Dispatch>): Promise<Result<Dispatch>> {
     return request.post('/v1/dispatches', data)
   },
 
   // 根据ID查询调度单
-  getById(id: number): Promise<Result<Result<Dispatch>> {
+  getById(id: number): Promise<Result<Dispatch>> {
     return request.get(`/v1/dispatches/${id}`)
   },
 
   // 根据运单ID查询调度单
-  getByWaybillId(waybillId: number): Promise<Result<Result<Dispatch>> {
+  getByWaybillId(waybillId: number): Promise<Result<Dispatch>> {
     return request.get(`/v1/dispatches/waybill/${waybillId}`)
   },
 
@@ -56,7 +56,7 @@ export const dispatchApi = {
     status?: number
     pageNum?: number
     pageSize?: number
-  }): Promise<Result<Result<PageResultResult<Dispatch>>> {
+  }): Promise<Result<PageResult<Dispatch>>> {
     return request.get('/v1/dispatches', { params })
   },
 

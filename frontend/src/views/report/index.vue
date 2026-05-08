@@ -177,7 +177,7 @@ const kpiData = reactive<KpiData>({
   monthIncome: 0
 })
 
-const waybillStat = ref ref<ReportData[]>([])
+const waybillStat = ref<ReportData[]>([])
 const costAnalysis = reactive({
   totalIncome: 0,
   totalExpense: 0,

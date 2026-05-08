@@ -9,22 +9,22 @@ export const warehouseApi = {
     status?: number
     pageNum?: number
     pageSize?: number
-  }): Promise<Result<Result<PageResultResult<Warehouse>>> {
+  }): Promise<Result<PageResult<Warehouse>>> {
     return request.get('/v1/warehouses', { params })
   },
 
   // 获取仓库详情
-  getById(id: number): Promise<Result<Result<Warehouse>> {
+  getById(id: number): Promise<Result<Warehouse>> {
     return request.get(`/v1/warehouses/${id}`)
   },
 
   // 创建仓库
-  create(data: Partial Partial<Warehouse>): Promise<Result<Result<Warehouse>> {
+  create(data: Partial<Warehouse>): Promise<Result<Warehouse>> {
     return request.post('/v1/warehouses', data)
   },
 
   // 更新仓库
-  update(id: number, data: Partial Partial<Warehouse>): Promise<Result<Result<Warehouse>> {
+  update(id: number, data: Partial<Warehouse>): Promise<Result<Warehouse>> {
     return request.put(`/v1/warehouses/${id}`, data)
   },
 

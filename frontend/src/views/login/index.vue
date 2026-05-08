@@ -51,7 +51,7 @@ import type { FormInstance, FormRules } from 'element-plus'
 
 const router = useRouter()
 const userStore = useUserStore()
-const formRef = ref ref<FormInstance>()
+const formRef = ref<FormInstance>()
 const loading = ref(false)
 
 const form = reactive({

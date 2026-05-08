@@ -8,22 +8,22 @@ export const customerApi = {
     status?: number
     pageNum?: number
     pageSize?: number
-  }): Promise<Result<Result<PageResultResult<Customer>>> {
+  }): Promise<Result<PageResult<Customer>>> {
     return request.get('/v1/customers', { params })
   },
 
   // 获取客户详情
-  getById(id: number): Promise<Result<Result<Customer>> {
+  getById(id: number): Promise<Result<Customer>> {
     return request.get(`/v1/customers/${id}`)
   },
 
   // 创建客户
-  create(data: Partial Partial<Customer>): Promise<Result<Result<Customer>> {
+  create(data: Partial<Customer>): Promise<Result<Customer>> {
     return request.post('/v1/customers', data)
   },
 
   // 更新客户
-  update(id: number, data: Partial Partial<Customer>): Promise<Result<Result<Customer>> {
+  update(id: number, data: Partial<Customer>): Promise<Result<Customer>> {
     return request.put(`/v1/customers/${id}`, data)
   },
 

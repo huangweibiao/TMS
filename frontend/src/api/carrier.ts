@@ -8,22 +8,22 @@ export const carrierApi = {
     status?: number
     pageNum?: number
     pageSize?: number
-  }): Promise<Result<Result<PageResultResult<Carrier>>> {
+  }): Promise<Result<PageResult<Carrier>>> {
     return request.get('/v1/carriers', { params })
   },
 
   // 获取承运商详情
-  getById(id: number): Promise<Result<Result<Carrier>> {
+  getById(id: number): Promise<Result<Carrier>> {
     return request.get(`/v1/carriers/${id}`)
   },
 
   // 创建承运商
-  create(data: Partial Partial<Carrier>): Promise<Result<Result<Carrier>> {
+  create(data: Partial<Carrier>): Promise<Result<Carrier>> {
     return request.post('/v1/carriers', data)
   },
 
   // 更新承运商
-  update(id: number, data: Partial Partial<Carrier>): Promise<Result<Result<Carrier>> {
+  update(id: number, data: Partial<Carrier>): Promise<Result<Carrier>> {
     return request.put(`/v1/carriers/${id}`, data)
   },
 

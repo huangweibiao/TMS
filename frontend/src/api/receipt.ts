@@ -8,32 +8,32 @@ export const receiptApi = {
     status?: number
     pageNum?: number
     pageSize?: number
-  }): Promise<Result<Result<PageResultResult<Receipt>>> {
+  }): Promise<Result<PageResult<Receipt>>> {
     return request.get('/api/receipt/list', { params })
   },
 
   // 获取回单详情
-  getById(id: number): Promise<Result<Result<Receipt>> {
+  getById(id: number): Promise<Result<Receipt>> {
     return request.get(`/api/receipt/${id}`)
   },
 
   // 根据回单号查询
-  getByNo(receiptNo: string): Promise<Result<Result<Receipt>> {
+  getByNo(receiptNo: string): Promise<Result<Receipt>> {
     return request.get(`/api/receipt/by-no/${receiptNo}`)
   },
 
   // 根据运单ID查询回单
-  getByWaybillId(waybillId: number): Promise<Result<Result<Receipt>> {
+  getByWaybillId(waybillId: number): Promise<Result<Receipt>> {
     return request.get(`/api/receipt/by-waybill/${waybillId}`)
   },
 
   // 创建回单
-  create(data: Partial Partial<Receipt>): Promise<Result<Result<Receipt>> {
+  create(data: Partial<Receipt>): Promise<Result<Receipt>> {
     return request.post('/api/receipt', data)
   },
 
   // 更新回单
-  update(id: number, data: Partial Partial<Receipt>): Promise<Result<Result<Receipt>> {
+  update(id: number, data: Partial<Receipt>): Promise<Result<Receipt>> {
     return request.put(`/api/receipt/${id}`, data)
   },
 
@@ -43,12 +43,12 @@ export const receiptApi = {
   },
 
   // 回传回单
-  returnReceipt(id: number): Promise<Result<Result<Receipt>> {
+  returnReceipt(id: number): Promise<Result<Receipt>> {
     return request.post(`/api/receipt/${id}/return`)
   },
 
   // 审核回单
-  audit(id: number): Promise<Result<Result<Receipt>> {
+  audit(id: number): Promise<Result<Receipt>> {
     return request.post(`/api/receipt/${id}/audit`)
   },
 

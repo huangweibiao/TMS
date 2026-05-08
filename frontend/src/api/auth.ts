@@ -3,7 +3,7 @@ import type { LoginRequest, LoginResponse, Result } from '@/types'
 
 export const authApi = {
   // 登录
-  login(data: LoginRequest): Promise<Result<Result<LoginResponse>> {
+  login(data: LoginRequest): Promise<Result<LoginResponse>> {
     return request.post('/v1/auth/login', data)
   },
 

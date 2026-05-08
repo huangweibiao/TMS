@@ -41,7 +41,7 @@ export const tempHumidityApi = {
     endTime?: string
     pageNum?: number
     pageSize?: number
-  }): Promise<Result<Result<PageResult<TempHumidity>>> {
+  }): Promise<Result<PageResult<TempHumidity>>> {
     return request.get('/api/temp-humidity/list', { params })
   },
 

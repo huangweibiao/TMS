@@ -10,27 +10,27 @@ export const onwayEventApi = {
     isHandled?: number
     pageNum?: number
     pageSize?: number
-  }): Promise<Result<Result<PageResultResult<OnwayEvent>>> {
+  }): Promise<Result<PageResult<OnwayEvent>>> {
     return request.get('/api/onway-event/list', { params })
   },
 
   // 获取在途事件详情
-  getById(id: number): Promise<Result<Result<OnwayEvent>> {
+  getById(id: number): Promise<Result<OnwayEvent>> {
     return request.get(`/api/onway-event/${id}`)
   },
 
   // 根据调度单ID查询在途事件列表
-  getByDispatchId(dispatchId: number): Promise<Result<Result<OnwayEvent[]>> {
+  getByDispatchId(dispatchId: number): Promise<Result<OnwayEvent[]>> {
     return request.get(`/api/onway-event/by-dispatch/${dispatchId}`)
   },
 
   // 创建在途事件
-  create(data: Partial Partial<OnwayEvent>): Promise<Result<Result<OnwayEvent>> {
+  create(data: Partial<OnwayEvent>): Promise<Result<OnwayEvent>> {
     return request.post('/api/onway-event', data)
   },
 
   // 更新在途事件
-  update(id: number, data: Partial Partial<OnwayEvent>): Promise<Result<Result<OnwayEvent>> {
+  update(id: number, data: Partial<OnwayEvent>): Promise<Result<OnwayEvent>> {
     return request.put(`/api/onway-event/${id}`, data)
   },
 
@@ -40,7 +40,7 @@ export const onwayEventApi = {
   },
 
   // 处理事件
-  handleEvent(id: number, handleResult: string): Promise<Result<Result<OnwayEvent>> {
+  handleEvent(id: number, handleResult: string): Promise<Result<OnwayEvent>> {
     return request.post(`/api/onway-event/${id}/handle`, { handleResult })
   },
 
