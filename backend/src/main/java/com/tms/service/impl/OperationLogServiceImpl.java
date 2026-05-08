@@ -32,12 +32,12 @@ public class OperationLogServiceImpl implements OperationLogService {
     }
 
     @Override
-    public PageResultResult<OperationLog> getOperationLogList(String username, String operationType,
+    public PageResult<OperationLog> getOperationLogList(String username, String operationType,
                                                         LocalDateTime startTime, LocalDateTime endTime,
                                                         int pageNum, int pageSize) {
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
 
-        Page Page<OperationLog> page;
+        Page<OperationLog> page;
 
         // 根据条件组合查询
         if (username != null && !username.isEmpty()) {

@@ -69,7 +69,7 @@ public class DataInitializer implements CommandLineRunner {
             return;
         }
 
-        List List<Permission> permissions = Arrays.asList(
+        List<Permission> permissions = Arrays.asList(
                 // 系统管理
                 createPermission("system:user:view", "用户查看", 3, null, "/system/user", 1),
                 createPermission("system:user:create", "用户创建", 3, null, null, 2),
@@ -144,7 +144,7 @@ public class DataInitializer implements CommandLineRunner {
             return;
         }
 
-        List List<Role> roles = Arrays.asList(
+        List<Role> roles = Arrays.asList(
                 createRole("ROLE_ADMIN", "系统管理员", "拥有所有权限"),
                 createRole("ROLE_DISPATCHER", "调度员", "负责运单调度和派车"),
                 createRole("ROLE_CUSTOMER_SERVICE", "客服", "负责运单创建和跟踪"),
@@ -212,7 +212,7 @@ public class DataInitializer implements CommandLineRunner {
         }
 
         // 为管理员角色分配所有权限
-        List List<Permission> permissions = permissionRepository.findAll();
+        List<Permission> permissions = permissionRepository.findAll();
         for (Permission permission : permissions) {
             RolePermission rolePermission = new RolePermission();
             rolePermission.setRoleId(adminRole.getId());

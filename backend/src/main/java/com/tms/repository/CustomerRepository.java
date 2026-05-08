@@ -15,7 +15,7 @@ import java.util.Optional;
  * @version 1.0.0
  */
 @Repository
-public interface CustomerRepository extends JpaRepositoryRepository<Customer, Long> {
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     /**
      * 根据客户编码查询客户
@@ -23,7 +23,7 @@ public interface CustomerRepository extends JpaRepositoryRepository<Customer, Lo
      * @param customerCode 客户编码
      * @return 客户对象
      */
-    Optional Optional<Customer> findByCustomerCode(String customerCode);
+    Optional<Customer> findByCustomerCode(String customerCode);
 
     /**
      * 分页查询客户列表
@@ -33,7 +33,7 @@ public interface CustomerRepository extends JpaRepositoryRepository<Customer, Lo
      * @param pageable     分页参数
      * @return 客户分页列表
      */
-    Page Page<Customer> findByCustomerNameContainingAndStatus(String customerName, Integer status, Pageable pageable);
+    Page<Customer> findByCustomerNameContainingAndStatus(String customerName, Integer status, Pageable pageable);
 
     /**
      * 检查客户编码是否存在

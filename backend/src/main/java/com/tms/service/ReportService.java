@@ -22,7 +22,7 @@ public interface ReportService {
      * @param endDate   结束日期
      * @return 统计结果
      */
-    List List<ReportDTO> getWaybillStatistics(LocalDate startDate, LocalDate endDate);
+    List<ReportDTO> getWaybillStatistics(LocalDate startDate, LocalDate endDate);
 
     /**
      * 成本分析报表

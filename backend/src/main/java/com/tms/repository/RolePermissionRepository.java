@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1.0.0
  */
 @Repository
-public interface RolePermissionRepository extends JpaRepositoryRepository<RolePermission, Long> {
+public interface RolePermissionRepository extends JpaRepository<RolePermission, Long> {
 
     /**
      * 根据角色ID查询权限关联列表
@@ -21,7 +21,7 @@ public interface RolePermissionRepository extends JpaRepositoryRepository<RolePe
      * @param roleId 角色ID
      * @return 关联列表
      */
-    List List<RolePermission> findByRoleId(Long roleId);
+    List<RolePermission> findByRoleId(Long roleId);
 
     /**
      * 删除角色的所有权限关联

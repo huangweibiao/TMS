@@ -44,7 +44,7 @@ public interface RoleService {
      * @param id 角色ID
      * @return 角色对象
      */
-    Optional Optional<Role> findById(Long id);
+    Optional<Role> findById(Long id);
 
     /**
      * 根据角色编码查询角色
@@ -52,14 +52,14 @@ public interface RoleService {
      * @param roleCode 角色编码
      * @return 角色对象
      */
-    Optional Optional<Role> findByRoleCode(String roleCode);
+    Optional<Role> findByRoleCode(String roleCode);
 
     /**
      * 查询所有角色
      *
      * @return 角色列表
      */
-    List List<Role> findAll();
+    List<Role> findAll();
 
     /**
      * 根据状态查询角色列表
@@ -67,7 +67,7 @@ public interface RoleService {
      * @param status 状态
      * @return 角色列表
      */
-    List List<Role> findByStatus(Integer status);
+    List<Role> findByStatus(Integer status);
 
     /**
      * 启用角色
@@ -107,5 +107,5 @@ public interface RoleService {
      * @param userId 用户ID
      * @return 角色列表
      */
-    List List<Role> getRolesByUserId(Long userId);
+    List<Role> getRolesByUserId(Long userId);
 }

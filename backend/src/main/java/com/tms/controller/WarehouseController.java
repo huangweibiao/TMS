@@ -59,7 +59,7 @@ public class WarehouseController {
     @DeleteMapping("/{id}")
     public Result<Void> deleteWarehouse(@PathVariable Long id) {
         warehouseService.deleteWarehouse(id);
-        return Result.success("删除成功");
+        return Result.success();
     }
 
     /**

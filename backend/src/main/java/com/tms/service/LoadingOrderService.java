@@ -46,7 +46,7 @@ public interface LoadingOrderService {
      * @param id 装货单ID
      * @return 装货单对象
      */
-    Optional Optional<LoadingOrder> findById(Long id);
+    Optional<LoadingOrder> findById(Long id);
 
     /**
      * 根据装货单号查询
@@ -54,7 +54,7 @@ public interface LoadingOrderService {
      * @param loadingNo 装货单号
      * @return 装货单对象
      */
-    Optional Optional<LoadingOrder> findByLoadingNo(String loadingNo);
+    Optional<LoadingOrder> findByLoadingNo(String loadingNo);
 
     /**
      * 根据调度单ID查询装货单列表
@@ -62,7 +62,7 @@ public interface LoadingOrderService {
      * @param dispatchId 调度单ID
      * @return 装货单列表
      */
-    List List<LoadingOrder> findByDispatchId(Long dispatchId);
+    List<LoadingOrder> findByDispatchId(Long dispatchId);
 
     /**
      * 分页查询装货单列表
@@ -72,7 +72,7 @@ public interface LoadingOrderService {
      * @param pageable   分页参数
      * @return 分页结果
      */
-    Page Page<LoadingOrder> findLoadingOrders(String loadingNo, Integer status, Pageable pageable);
+    Page<LoadingOrder> findLoadingOrders(String loadingNo, Integer status, Pageable pageable);
 
     /**
      * 开始装货

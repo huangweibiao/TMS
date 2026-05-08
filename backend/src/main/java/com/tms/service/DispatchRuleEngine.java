@@ -45,7 +45,7 @@ public interface DispatchRuleEngine {
      * @param strategyType 策略类型
      * @return 调度方案列表
      */
-    List List<DispatchPlan> batchAssignVehicles(List(List<Waybill> waybills, StrategyType strategyType);
+    List<DispatchPlan> batchAssignVehicles(List<Waybill> waybills, StrategyType strategyType);
 
     /**
      * 路径规划
@@ -196,7 +196,7 @@ public interface DispatchRuleEngine {
         private BigDecimal totalDistance;
         private int estimatedTime;
         private String routeJson;
-        private List List<RouteSegment> segments;
+        private List<RouteSegment> segments;
 
         // Getters and Setters
         public String getStartAddress() {
@@ -247,11 +247,11 @@ public interface DispatchRuleEngine {
             this.routeJson = routeJson;
         }
 
-        public List List<RouteSegment> getSegments() {
+        public List<RouteSegment> getSegments() {
             return segments;
         }
 
-        public void setSegments(List(List<RouteSegment> segments) {
+        public void setSegments(List<RouteSegment> segments) {
             this.segments = segments;
         }
     }

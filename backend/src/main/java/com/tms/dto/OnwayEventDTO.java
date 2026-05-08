@@ -195,4 +195,23 @@ public class OnwayEventDTO {
     public void setHandleBy(String handleBy) {
         this.handleBy = handleBy;
     }
+
+    private java.time.LocalDateTime createTime;
+    private java.time.LocalDateTime updateTime;
+
+    public java.time.LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(java.time.LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public java.time.LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(java.time.LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
 }

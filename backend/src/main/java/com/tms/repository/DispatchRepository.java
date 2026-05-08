@@ -17,7 +17,7 @@ import java.util.Optional;
  * @version 1.0.0
  */
 @Repository
-public interface DispatchRepository extends JpaRepositoryRepository<Dispatch, Long> {
+public interface DispatchRepository extends JpaRepository<Dispatch, Long> {
 
     /**
      * 根据调度单号查询调度单
@@ -25,7 +25,7 @@ public interface DispatchRepository extends JpaRepositoryRepository<Dispatch, Lo
      * @param dispatchNo 调度单号
      * @return 调度单对象
      */
-    Optional Optional<Dispatch> findByDispatchNo(String dispatchNo);
+    Optional<Dispatch> findByDispatchNo(String dispatchNo);
 
     /**
      * 根据运单ID查询调度单
@@ -33,7 +33,7 @@ public interface DispatchRepository extends JpaRepositoryRepository<Dispatch, Lo
      * @param waybillId 运单ID
      * @return 调度单对象
      */
-    Optional Optional<Dispatch> findByWaybillId(Long waybillId);
+    Optional<Dispatch> findByWaybillId(Long waybillId);
 
     /**
      * 根据车辆ID和状态查询调度单列表
@@ -42,7 +42,7 @@ public interface DispatchRepository extends JpaRepositoryRepository<Dispatch, Lo
      * @param status    状态
      * @return 调度单列表
      */
-    List List<Dispatch> findByVehicleIdAndDispatchStatus(Long vehicleId, Integer status);
+    List<Dispatch> findByVehicleIdAndDispatchStatus(Long vehicleId, Integer status);
 
     /**
      * 分页查询调度单列表
@@ -52,7 +52,7 @@ public interface DispatchRepository extends JpaRepositoryRepository<Dispatch, Lo
      * @param pageable   分页参数
      * @return 调度单分页列表
      */
-    Page Page<Dispatch> findByDispatchNoContainingAndDispatchStatus(String dispatchNo, Integer status, Pageable pageable);
+    Page<Dispatch> findByDispatchNoContainingAndDispatchStatus(String dispatchNo, Integer status, Pageable pageable);
 
     /**
      * 根据状态查询调度单
@@ -61,7 +61,7 @@ public interface DispatchRepository extends JpaRepositoryRepository<Dispatch, Lo
      * @param pageable 分页参数
      * @return 调度单分页列表
      */
-    Page Page<Dispatch> findByDispatchStatus(Integer status, Pageable pageable);
+    Page<Dispatch> findByDispatchStatus(Integer status, Pageable pageable);
 
     /**
      * 查询指定前缀的最大调度单号

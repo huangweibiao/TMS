@@ -35,7 +35,7 @@ public class PermissionController {
      * @return 创建结果
      */
     @PostMapping
-    public Result Result<PermissionDTO> createPermission(@Valid @RequestBody PermissionDTO dto) {
+    public Result<PermissionDTO> createPermission(@Valid @RequestBody PermissionDTO dto) {
         Permission permission = permissionService.createPermission(dto);
         return Result.success(convertToDTO(permission));
     }
@@ -48,7 +48,7 @@ public class PermissionController {
      * @return 更新结果
      */
     @PutMapping("/{id}")
-    public Result Result<PermissionDTO> updatePermission(@PathVariable Long id,
+    public Result<PermissionDTO> updatePermission(@PathVariable Long id,
                                                   @Valid @RequestBody PermissionDTO dto) {
         Permission permission = permissionService.updatePermission(id, dto);
         return Result.success(convertToDTO(permission));
@@ -73,7 +73,7 @@ public class PermissionController {
      * @return 权限信息
      */
     @GetMapping("/{id}")
-    public Result Result<PermissionDTO> getPermissionById(@PathVariable Long id) {
+    public Result<PermissionDTO> getPermissionById(@PathVariable Long id) {
         return permissionService.findById(id)
                 .map(this::convertToDTO)
                 .map(Result::success)
@@ -87,7 +87,7 @@ public class PermissionController {
      * @return 权限信息
      */
     @GetMapping("/by-code/{permissionCode}")
-    public Result Result<PermissionDTO> getPermissionByCode(@PathVariable String permissionCode) {
+    public Result<PermissionDTO> getPermissionByCode(@PathVariable String permissionCode) {
         return permissionService.findByPermissionCode(permissionCode)
                 .map(this::convertToDTO)
                 .map(Result::success)
@@ -100,8 +100,8 @@ public class PermissionController {
      * @return 权限列表
      */
     @GetMapping("/list")
-    public Result<List<List<PermissionDTO>> getAllPermissions() {
-        List List<PermissionDTO> list = permissionService.findAll()
+    public Result<List<PermissionDTO>> getAllPermissions() {
+        List<PermissionDTO> list = permissionService.findAll()
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -115,8 +115,8 @@ public class PermissionController {
      * @return 权限列表
      */
     @GetMapping("/by-parent/{parentId}")
-    public Result<List<List<PermissionDTO>> getPermissionsByParent(@PathVariable Long parentId) {
-        List List<PermissionDTO> list = permissionService.findByParentId(parentId)
+    public Result<List<PermissionDTO>> getPermissionsByParent(@PathVariable Long parentId) {
+        List<PermissionDTO> list = permissionService.findByParentId(parentId)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -130,8 +130,8 @@ public class PermissionController {
      * @return 权限列表
      */
     @GetMapping("/by-type/{permissionType}")
-    public Result<List<List<PermissionDTO>> getPermissionsByType(@PathVariable Integer permissionType) {
-        List List<PermissionDTO> list = permissionService.findByPermissionType(permissionType)
+    public Result<List<PermissionDTO>> getPermissionsByType(@PathVariable Integer permissionType) {
+        List<PermissionDTO> list = permissionService.findByPermissionType(permissionType)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -145,7 +145,7 @@ public class PermissionController {
      * @return 操作结果
      */
     @PostMapping("/{id}/enable")
-    public Result Result<PermissionDTO> enablePermission(@PathVariable Long id) {
+    public Result<PermissionDTO> enablePermission(@PathVariable Long id) {
         Permission permission = permissionService.enablePermission(id);
         return Result.success(convertToDTO(permission));
     }
@@ -157,7 +157,7 @@ public class PermissionController {
      * @return 操作结果
      */
     @PostMapping("/{id}/disable")
-    public Result Result<PermissionDTO> disablePermission(@PathVariable Long id) {
+    public Result<PermissionDTO> disablePermission(@PathVariable Long id) {
         Permission permission = permissionService.disablePermission(id);
         return Result.success(convertToDTO(permission));
     }

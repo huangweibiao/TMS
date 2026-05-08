@@ -123,15 +123,15 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public PageResultResult<DriverDTO> getDriverList(String driverName, Integer status, int pageNum, int pageSize) {
+    public PageResult<DriverDTO> getDriverList(String driverName, Integer status, int pageNum, int pageSize) {
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
         String searchName = driverName == null ? "" : driverName;
         Integer searchStatus = status == null ? 1 : status;
 
-        Page Page<Driver> page = driverRepository.findByDriverNameContainingAndStatus(
+        Page<Driver> page = driverRepository.findByDriverNameContainingAndStatus(
                 searchName, searchStatus, pageable);
 
-        List List<DriverDTO> list = page.getContent().stream()
+        List<DriverDTO> list = page.getContent().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
 
@@ -139,9 +139,9 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public List List<DriverDTO> getAvailableDrivers() {
+    public List<DriverDTO> getAvailableDrivers() {
         // 状态1-空闲的司机为可用司机
-        List List<Driver> drivers = driverRepository.findByStatus(1);
+        List<Driver> drivers = driverRepository.findByStatus(1);
         return drivers.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());

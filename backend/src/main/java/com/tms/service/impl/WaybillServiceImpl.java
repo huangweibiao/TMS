@@ -63,7 +63,7 @@ public class WaybillServiceImpl implements WaybillService {
 
         // 保存运单明细
         if (waybillDTO.getDetails() != null && !waybillDTO.getDetails().isEmpty()) {
-            List List<WaybillDetail> details = waybillDTO.getDetails().stream()
+            List<WaybillDetail> details = waybillDTO.getDetails().stream()
                     .map(detailDTO -> {
                         WaybillDetail detail = convertDetailToEntity(detailDTO);
                         detail.setWaybillId(savedWaybill.getId());
@@ -118,7 +118,7 @@ public class WaybillServiceImpl implements WaybillService {
         // 删除原有明细，保存新明细
         waybillDetailRepository.deleteByWaybillId(id);
         if (waybillDTO.getDetails() != null && !waybillDTO.getDetails().isEmpty()) {
-            List List<WaybillDetail> details = waybillDTO.getDetails().stream()
+            List<WaybillDetail> details = waybillDTO.getDetails().stream()
                     .map(detailDTO -> {
                         WaybillDetail detail = convertDetailToEntity(detailDTO);
                         detail.setWaybillId(updatedWaybill.getId());
@@ -163,10 +163,10 @@ public class WaybillServiceImpl implements WaybillService {
     }
 
     @Override
-    public PageResultResult<WaybillDTO> getWaybillList(String waybillNo, Integer status, int pageNum, int pageSize) {
+    public PageResult<WaybillDTO> getWaybillList(String waybillNo, Integer status, int pageNum, int pageSize) {
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
 
-        Page Page<Waybill> page;
+        Page<Waybill> page;
         if (waybillNo != null && !waybillNo.isEmpty()) {
             // 根据运单号模糊查询
             page = waybillRepository.findByWaybillNoContaining(waybillNo, pageable);
@@ -178,7 +178,7 @@ public class WaybillServiceImpl implements WaybillService {
             page = waybillRepository.findAll(pageable);
         }
 
-        List List<WaybillDTO> list = page.getContent().stream()
+        List<WaybillDTO> list = page.getContent().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
 
@@ -342,7 +342,7 @@ public class WaybillServiceImpl implements WaybillService {
 
     @Override
     @Transactional
-    public WaybillDTO splitWaybill(Long id, List List<WaybillDTO> splitItems) {
+    public WaybillDTO splitWaybill(Long id, List<WaybillDTO> splitItems) {
         Waybill originalWaybill = waybillRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("运单不存在"));
 
@@ -381,7 +381,7 @@ public class WaybillServiceImpl implements WaybillService {
             throw new BusinessException("合并至少需要两个运单");
         }
 
-        List List<Waybill> waybills = waybillRepository.findAllById(ids);
+        List<Waybill> waybills = waybillRepository.findAllById(ids);
 
         if (waybills.size() != ids.size()) {
             throw new BusinessException("部分运单不存在");
@@ -423,9 +423,9 @@ public class WaybillServiceImpl implements WaybillService {
         mergedWaybill.setRemark("合并运单，原运单: " + ids);
 
         // 合并明细
-        List List<WaybillDetailDTO> mergedDetails = new ArrayList<>();
+        List<WaybillDetailDTO> mergedDetails = new ArrayList<>();
         for (Waybill waybill : waybills) {
-            List List<WaybillDetail> details = waybillDetailRepository.findByWaybillId(waybill.getId());
+            List<WaybillDetail> details = waybillDetailRepository.findByWaybillId(waybill.getId());
             for (WaybillDetail detail : details) {
                 WaybillDetailDTO detailDTO = convertDetailToDTO(detail);
                 detailDTO.setId(null); // 清除ID，作为新记录
@@ -629,7 +629,7 @@ public class WaybillServiceImpl implements WaybillService {
                 .ifPresent(customer -> dto.setCustomerName(customer.getCustomerName()));
 
         // 查询明细
-        List List<WaybillDetail> details = waybillDetailRepository.findByWaybillId(entity.getId());
+        List<WaybillDetail> details = waybillDetailRepository.findByWaybillId(entity.getId());
         if (!details.isEmpty()) {
             dto.setDetails(details.stream()
                     .map(this::convertDetailToDTO)

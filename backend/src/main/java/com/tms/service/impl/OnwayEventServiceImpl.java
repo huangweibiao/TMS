@@ -110,24 +110,24 @@ public class OnwayEventServiceImpl implements OnwayEventService {
 
     @Override
     @Cacheable(value = "onwayEvent", key = "#id")
-    public Optional Optional<OnwayEvent> findById(Long id) {
+    public Optional<OnwayEvent> findById(Long id) {
         return onwayEventRepository.findById(id);
     }
 
     @Override
-    public List List<OnwayEvent> findByDispatchId(Long dispatchId) {
+    public List<OnwayEvent> findByDispatchId(Long dispatchId) {
         return onwayEventRepository.findByDispatchIdOrderByEventTimeDesc(dispatchId);
     }
 
     @Override
-    public List List<OnwayEvent> findByDispatchIdAndIsHandled(Long dispatchId, Integer isHandled) {
+    public List<OnwayEvent> findByDispatchIdAndIsHandled(Long dispatchId, Integer isHandled) {
         return onwayEventRepository.findByDispatchIdAndIsHandled(dispatchId, isHandled);
     }
 
     @Override
-    public Page Page<OnwayEvent> findEvents(Long dispatchId, Integer eventType, Integer eventLevel, Integer isHandled, Pageable pageable) {
-        Specification Specification<OnwayEvent> spec = (root, query, cb) -> {
-            List List<Predicate> predicates = new ArrayList<>();
+    public Page<OnwayEvent> findEvents(Long dispatchId, Integer eventType, Integer eventLevel, Integer isHandled, Pageable pageable) {
+        Specification<OnwayEvent> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
 
             if (dispatchId != null) {
                 predicates.add(cb.equal(root.get("dispatchId"), dispatchId));

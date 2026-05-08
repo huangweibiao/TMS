@@ -46,7 +46,7 @@ public interface OnwayEventService {
      * @param id 在途事件ID
      * @return 在途事件对象
      */
-    Optional Optional<OnwayEvent> findById(Long id);
+    Optional<OnwayEvent> findById(Long id);
 
     /**
      * 根据调度单ID查询事件列表
@@ -54,7 +54,7 @@ public interface OnwayEventService {
      * @param dispatchId 调度单ID
      * @return 事件列表
      */
-    List List<OnwayEvent> findByDispatchId(Long dispatchId);
+    List<OnwayEvent> findByDispatchId(Long dispatchId);
 
     /**
      * 根据调度单ID和处理状态查询事件
@@ -63,7 +63,7 @@ public interface OnwayEventService {
      * @param isHandled  处理状态
      * @return 事件列表
      */
-    List List<OnwayEvent> findByDispatchIdAndIsHandled(Long dispatchId, Integer isHandled);
+    List<OnwayEvent> findByDispatchIdAndIsHandled(Long dispatchId, Integer isHandled);
 
     /**
      * 分页查询事件列表
@@ -75,7 +75,7 @@ public interface OnwayEventService {
      * @param pageable   分页参数
      * @return 分页结果
      */
-    Page Page<OnwayEvent> findEvents(Long dispatchId, Integer eventType, Integer eventLevel, Integer isHandled, Pageable pageable);
+    Page<OnwayEvent> findEvents(Long dispatchId, Integer eventType, Integer eventLevel, Integer isHandled, Pageable pageable);
 
     /**
      * 处理事件

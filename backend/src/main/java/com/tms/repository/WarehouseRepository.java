@@ -15,7 +15,7 @@ import java.util.Optional;
  * @version 1.0.0
  */
 @Repository
-public interface WarehouseRepository extends JpaRepositoryRepository<Warehouse, Long> {
+public interface WarehouseRepository extends JpaRepository<Warehouse, Long> {
 
     /**
      * 根据仓库编码查询仓库
@@ -23,7 +23,7 @@ public interface WarehouseRepository extends JpaRepositoryRepository<Warehouse, 
      * @param warehouseCode 仓库编码
      * @return 仓库对象
      */
-    Optional Optional<Warehouse> findByWarehouseCode(String warehouseCode);
+    Optional<Warehouse> findByWarehouseCode(String warehouseCode);
 
     /**
      * 分页查询仓库列表
@@ -33,7 +33,7 @@ public interface WarehouseRepository extends JpaRepositoryRepository<Warehouse, 
      * @param pageable      分页参数
      * @return 仓库分页列表
      */
-    Page Page<Warehouse> findByWarehouseNameContainingAndStatus(String warehouseName, Integer status, Pageable pageable);
+    Page<Warehouse> findByWarehouseNameContainingAndStatus(String warehouseName, Integer status, Pageable pageable);
 
     /**
      * 检查仓库编码是否存在

@@ -137,7 +137,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<User> findUsers(String username, Integer status, Pageable pageable) {
         Specification<User> spec = (root, query, cb) -> {
-            List List<Predicate> predicates = new ArrayList<>();
+            List<Predicate> predicates = new ArrayList<>();
 
             if (StringUtils.hasText(username)) {
                 predicates.add(cb.like(root.get("username"), "%" + username + "%"));

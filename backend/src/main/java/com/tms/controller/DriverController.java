@@ -61,7 +61,7 @@ public class DriverController {
     @DeleteMapping("/{id}")
     public Result<Void> deleteDriver(@PathVariable Long id) {
         driverService.deleteDriver(id);
-        return Result.success("删除成功");
+        return Result.success();
     }
 
     /**

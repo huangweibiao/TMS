@@ -115,25 +115,25 @@ public class LoadingOrderServiceImpl implements LoadingOrderService {
 
     @Override
     @Cacheable(value = "loadingOrder", key = "#id")
-    public Optional Optional<LoadingOrder> findById(Long id) {
+    public Optional<LoadingOrder> findById(Long id) {
         return loadingOrderRepository.findById(id);
     }
 
     @Override
     @Cacheable(value = "loadingOrder", key = "#loadingNo")
-    public Optional Optional<LoadingOrder> findByLoadingNo(String loadingNo) {
+    public Optional<LoadingOrder> findByLoadingNo(String loadingNo) {
         return loadingOrderRepository.findByLoadingNo(loadingNo);
     }
 
     @Override
-    public List List<LoadingOrder> findByDispatchId(Long dispatchId) {
+    public List<LoadingOrder> findByDispatchId(Long dispatchId) {
         return loadingOrderRepository.findByDispatchId(dispatchId);
     }
 
     @Override
-    public Page Page<LoadingOrder> findLoadingOrders(String loadingNo, Integer status, Pageable pageable) {
-        Specification Specification<LoadingOrder> spec = (root, query, cb) -> {
-            List List<Predicate> predicates = new ArrayList<>();
+    public Page<LoadingOrder> findLoadingOrders(String loadingNo, Integer status, Pageable pageable) {
+        Specification<LoadingOrder> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
 
             if (StringUtils.hasText(loadingNo)) {
                 predicates.add(cb.like(root.get("loadingNo"), "%" + loadingNo + "%"));

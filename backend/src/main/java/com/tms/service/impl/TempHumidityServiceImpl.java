@@ -114,7 +114,7 @@ public class TempHumidityServiceImpl implements TempHumidityService {
     @Override
     public Page<TempHumidity> findRecords(Long dispatchId, String deviceId, LocalDateTime startTime, LocalDateTime endTime, Pageable pageable) {
         Specification<TempHumidity> spec = (root, query, cb) -> {
-            List List<Predicate> predicates = new ArrayList<>();
+            List<Predicate> predicates = new ArrayList<>();
 
             if (dispatchId != null) {
                 predicates.add(cb.equal(root.get("dispatchId"), dispatchId));

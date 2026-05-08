@@ -2,6 +2,7 @@ package com.tms.repository;
 
 import com.tms.entity.TempHumidity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ import java.util.List;
  * @version 1.0.0
  */
 @Repository
-public interface TempHumidityRepository extends JpaRepository<TempHumidity, Long> {
+public interface TempHumidityRepository extends JpaRepository<TempHumidity, Long>, JpaSpecificationExecutor<TempHumidity> {
 
     /**
      * 根据调度单ID查询温湿度记录

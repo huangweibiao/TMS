@@ -31,7 +31,7 @@ public interface TrackPointService {
      * @param dtoList 轨迹点DTO列表
      * @return 创建后的轨迹点列表
      */
-    List List<TrackPoint> batchCreateTrackPoints(List(List<TrackPointDTO> dtoList);
+    List<TrackPoint> batchCreateTrackPoints(List<TrackPointDTO> dtoList);
 
     /**
      * 根据ID查询轨迹点
@@ -39,7 +39,7 @@ public interface TrackPointService {
      * @param id 轨迹点ID
      * @return 轨迹点对象
      */
-    Optional Optional<TrackPoint> findById(Long id);
+    Optional<TrackPoint> findById(Long id);
 
     /**
      * 根据调度单ID查询轨迹点列表
@@ -47,7 +47,7 @@ public interface TrackPointService {
      * @param dispatchId 调度单ID
      * @return 轨迹点列表
      */
-    List List<TrackPoint> findByDispatchId(Long dispatchId);
+    List<TrackPoint> findByDispatchId(Long dispatchId);
 
     /**
      * 根据调度单ID和时间范围查询轨迹点
@@ -57,7 +57,7 @@ public interface TrackPointService {
      * @param endTime    结束时间
      * @return 轨迹点列表
      */
-    List List<TrackPoint> findByDispatchIdAndTimeRange(Long dispatchId, LocalDateTime startTime, LocalDateTime endTime);
+    List<TrackPoint> findByDispatchIdAndTimeRange(Long dispatchId, LocalDateTime startTime, LocalDateTime endTime);
 
     /**
      * 根据车辆ID查询最新轨迹点
@@ -66,7 +66,7 @@ public interface TrackPointService {
      * @param limit     限制数量
      * @return 轨迹点列表
      */
-    List List<TrackPoint> findLatestByVehicleId(Long vehicleId, int limit);
+    List<TrackPoint> findLatestByVehicleId(Long vehicleId, int limit);
 
     /**
      * 分页查询轨迹点列表
@@ -78,7 +78,7 @@ public interface TrackPointService {
      * @param pageable   分页参数
      * @return 分页结果
      */
-    Page Page<TrackPoint> findTrackPoints(Long dispatchId, Long vehicleId, LocalDateTime startTime, LocalDateTime endTime, Pageable pageable);
+    Page<TrackPoint> findTrackPoints(Long dispatchId, Long vehicleId, LocalDateTime startTime, LocalDateTime endTime, Pageable pageable);
 
     /**
      * 删除指定时间之前的轨迹点

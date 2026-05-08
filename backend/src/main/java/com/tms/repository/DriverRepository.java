@@ -16,7 +16,7 @@ import java.util.Optional;
  * @version 1.0.0
  */
 @Repository
-public interface DriverRepository extends JpaRepositoryRepository<Driver, Long> {
+public interface DriverRepository extends JpaRepository<Driver, Long> {
 
     /**
      * 根据身份证号查询司机
@@ -24,7 +24,7 @@ public interface DriverRepository extends JpaRepositoryRepository<Driver, Long> 
      * @param idCard 身份证号
      * @return 司机对象
      */
-    Optional Optional<Driver> findByIdCard(String idCard);
+    Optional<Driver> findByIdCard(String idCard);
 
     /**
      * 根据状态查询司机列表
@@ -32,7 +32,7 @@ public interface DriverRepository extends JpaRepositoryRepository<Driver, Long> 
      * @param status 状态
      * @return 司机列表
      */
-    List List<Driver> findByStatus(Integer status);
+    List<Driver> findByStatus(Integer status);
 
     /**
      * 分页查询司机列表
@@ -42,7 +42,7 @@ public interface DriverRepository extends JpaRepositoryRepository<Driver, Long> 
      * @param pageable   分页参数
      * @return 司机分页列表
      */
-    Page Page<Driver> findByDriverNameContainingAndStatus(String driverName, Integer status, Pageable pageable);
+    Page<Driver> findByDriverNameContainingAndStatus(String driverName, Integer status, Pageable pageable);
 
     /**
      * 检查身份证号是否存在

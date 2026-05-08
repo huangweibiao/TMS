@@ -46,7 +46,7 @@ public interface SettlementService {
      * @param id 结算单ID
      * @return 结算单对象
      */
-    Optional Optional<Settlement> findById(Long id);
+    Optional<Settlement> findById(Long id);
 
     /**
      * 根据结算单号查询
@@ -54,7 +54,7 @@ public interface SettlementService {
      * @param settlementNo 结算单号
      * @return 结算单对象
      */
-    Optional Optional<Settlement> findBySettlementNo(String settlementNo);
+    Optional<Settlement> findBySettlementNo(String settlementNo);
 
     /**
      * 分页查询结算单列表
@@ -65,7 +65,7 @@ public interface SettlementService {
      * @param pageable  分页参数
      * @return 分页结果
      */
-    Page Page<Settlement> findSettlements(Integer partyType, Long partyId, Integer status, Pageable pageable);
+    Page<Settlement> findSettlements(Integer partyType, Long partyId, Integer status, Pageable pageable);
 
     /**
      * 确认结算单

@@ -36,10 +36,10 @@ public class ReportController {
      * @return 统计结果
      */
     @GetMapping("/waybill-stat")
-    public Result<List<List<ReportDTO>> getWaybillStatistics(
+    public Result<List<ReportDTO>> getWaybillStatistics(
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
-        List List<ReportDTO> result = reportService.getWaybillStatistics(startDate, endDate);
+        List<ReportDTO> result = reportService.getWaybillStatistics(startDate, endDate);
         return Result.success(result);
     }
 

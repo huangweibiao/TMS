@@ -46,7 +46,7 @@ public interface AddressService {
      * @param id 地址ID
      * @return 地址对象
      */
-    Optional Optional<Address> findById(Long id);
+    Optional<Address> findById(Long id);
 
     /**
      * 根据客户ID查询地址列表
@@ -54,7 +54,7 @@ public interface AddressService {
      * @param customerId 客户ID
      * @return 地址列表
      */
-    List List<Address> findByCustomerId(Long customerId);
+    List<Address> findByCustomerId(Long customerId);
 
     /**
      * 根据客户ID和地址类型查询地址列表
@@ -63,7 +63,7 @@ public interface AddressService {
      * @param addressType 地址类型
      * @return 地址列表
      */
-    List List<Address> findByCustomerIdAndType(Long customerId, Integer addressType);
+    List<Address> findByCustomerIdAndType(Long customerId, Integer addressType);
 
     /**
      * 分页查询地址列表
@@ -74,7 +74,7 @@ public interface AddressService {
      * @param pageable    分页参数
      * @return 分页结果
      */
-    Page Page<Address> findAddresses(Long customerId, Integer addressType, Integer status, Pageable pageable);
+    Page<Address> findAddresses(Long customerId, Integer addressType, Integer status, Pageable pageable);
 
     /**
      * 设置默认地址

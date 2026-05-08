@@ -92,15 +92,15 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
-    public PageResultResult<WarehouseDTO> getWarehouseList(String warehouseName, Integer status, int pageNum, int pageSize) {
+    public PageResult<WarehouseDTO> getWarehouseList(String warehouseName, Integer status, int pageNum, int pageSize) {
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
         String searchName = warehouseName == null ? "" : warehouseName;
         Integer searchStatus = status == null ? 1 : status;
 
-        Page Page<Warehouse> page = warehouseRepository.findByWarehouseNameContainingAndStatus(
+        Page<Warehouse> page = warehouseRepository.findByWarehouseNameContainingAndStatus(
                 searchName, searchStatus, pageable);
 
-        List List<WarehouseDTO> list = page.getContent().stream()
+        List<WarehouseDTO> list = page.getContent().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
 

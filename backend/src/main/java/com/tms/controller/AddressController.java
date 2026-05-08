@@ -41,7 +41,7 @@ public class AddressController {
      * @return 创建结果
      */
     @PostMapping
-    public Result Result<AddressDTO> createAddress(@Valid @RequestBody AddressDTO dto) {
+    public Result<AddressDTO> createAddress(@Valid @RequestBody AddressDTO dto) {
         Address address = addressService.createAddress(dto);
         return Result.success(convertToDTO(address));
     }
@@ -54,7 +54,7 @@ public class AddressController {
      * @return 更新结果
      */
     @PutMapping("/{id}")
-    public Result Result<AddressDTO> updateAddress(@PathVariable Long id,
+    public Result<AddressDTO> updateAddress(@PathVariable Long id,
                                            @Valid @RequestBody AddressDTO dto) {
         Address address = addressService.updateAddress(id, dto);
         return Result.success(convertToDTO(address));
@@ -79,7 +79,7 @@ public class AddressController {
      * @return 地址信息
      */
     @GetMapping("/{id}")
-    public Result Result<AddressDTO> getAddressById(@PathVariable Long id) {
+    public Result<AddressDTO> getAddressById(@PathVariable Long id) {
         return addressService.findById(id)
                 .map(this::convertToDTO)
                 .map(Result::success)
@@ -93,8 +93,8 @@ public class AddressController {
      * @return 地址列表
      */
     @GetMapping("/by-customer/{customerId}")
-    public Result<List<List<AddressDTO>> getAddressesByCustomer(@PathVariable Long customerId) {
-        List List<AddressDTO> list = addressService.findByCustomerId(customerId)
+    public Result<List<AddressDTO>> getAddressesByCustomer(@PathVariable Long customerId) {
+        List<AddressDTO> list = addressService.findByCustomerId(customerId)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -109,10 +109,10 @@ public class AddressController {
      * @return 地址列表
      */
     @GetMapping("/by-customer/{customerId}/type/{addressType}")
-    public Result<List<List<AddressDTO>> getAddressesByCustomerAndType(
+    public Result<List<AddressDTO>> getAddressesByCustomerAndType(
             @PathVariable Long customerId,
             @PathVariable Integer addressType) {
-        List List<AddressDTO> list = addressService.findByCustomerIdAndType(customerId, addressType)
+        List<AddressDTO> list = addressService.findByCustomerIdAndType(customerId, addressType)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -130,7 +130,7 @@ public class AddressController {
      * @return 分页结果
      */
     @GetMapping("/list")
-    public Result Result<PageResultResult<AddressDTO>> getAddressList(
+    public Result<PageResult<AddressDTO>> getAddressList(
             @RequestParam(required = false) Long customerId,
             @RequestParam(required = false) Integer addressType,
             @RequestParam(required = false) Integer status,
@@ -138,9 +138,9 @@ public class AddressController {
             @RequestParam(defaultValue = "10") int pageSize) {
 
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-        Page Page<Address> page = addressService.findAddresses(customerId, addressType, status, pageable);
+        Page<Address> page = addressService.findAddresses(customerId, addressType, status, pageable);
 
-        List List<AddressDTO> list = page.getContent()
+        List<AddressDTO> list = page.getContent()
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -155,7 +155,7 @@ public class AddressController {
      * @return 操作结果
      */
     @PostMapping("/{id}/set-default")
-    public Result Result<AddressDTO> setDefaultAddress(@PathVariable Long id) {
+    public Result<AddressDTO> setDefaultAddress(@PathVariable Long id) {
         Address address = addressService.setDefaultAddress(id);
         return Result.success(convertToDTO(address));
     }
@@ -167,7 +167,7 @@ public class AddressController {
      * @return 操作结果
      */
     @PostMapping("/{id}/cancel-default")
-    public Result Result<AddressDTO> cancelDefaultAddress(@PathVariable Long id) {
+    public Result<AddressDTO> cancelDefaultAddress(@PathVariable Long id) {
         Address address = addressService.cancelDefaultAddress(id);
         return Result.success(convertToDTO(address));
     }
@@ -179,7 +179,7 @@ public class AddressController {
      * @return 操作结果
      */
     @PostMapping("/{id}/enable")
-    public Result Result<AddressDTO> enableAddress(@PathVariable Long id) {
+    public Result<AddressDTO> enableAddress(@PathVariable Long id) {
         Address address = addressService.enableAddress(id);
         return Result.success(convertToDTO(address));
     }
@@ -191,7 +191,7 @@ public class AddressController {
      * @return 操作结果
      */
     @PostMapping("/{id}/disable")
-    public Result Result<AddressDTO> disableAddress(@PathVariable Long id) {
+    public Result<AddressDTO> disableAddress(@PathVariable Long id) {
         Address address = addressService.disableAddress(id);
         return Result.success(convertToDTO(address));
     }

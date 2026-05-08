@@ -42,7 +42,7 @@ public class SettlementController {
      * @return 创建结果
      */
     @PostMapping
-    public Result Result<SettlementDTO> createSettlement(@Valid @RequestBody SettlementDTO dto) {
+    public Result<SettlementDTO> createSettlement(@Valid @RequestBody SettlementDTO dto) {
         Settlement settlement = settlementService.createSettlement(dto);
         return Result.success(convertToDTO(settlement));
     }
@@ -55,7 +55,7 @@ public class SettlementController {
      * @return 更新结果
      */
     @PutMapping("/{id}")
-    public Result Result<SettlementDTO> updateSettlement(@PathVariable Long id,
+    public Result<SettlementDTO> updateSettlement(@PathVariable Long id,
                                                   @Valid @RequestBody SettlementDTO dto) {
         Settlement settlement = settlementService.updateSettlement(id, dto);
         return Result.success(convertToDTO(settlement));
@@ -80,7 +80,7 @@ public class SettlementController {
      * @return 结算单信息
      */
     @GetMapping("/{id}")
-    public Result Result<SettlementDTO> getSettlementById(@PathVariable Long id) {
+    public Result<SettlementDTO> getSettlementById(@PathVariable Long id) {
         return settlementService.findById(id)
                 .map(this::convertToDTO)
                 .map(Result::success)
@@ -94,7 +94,7 @@ public class SettlementController {
      * @return 结算单信息
      */
     @GetMapping("/by-no/{settlementNo}")
-    public Result Result<SettlementDTO> getSettlementByNo(@PathVariable String settlementNo) {
+    public Result<SettlementDTO> getSettlementByNo(@PathVariable String settlementNo) {
         return settlementService.findBySettlementNo(settlementNo)
                 .map(this::convertToDTO)
                 .map(Result::success)
@@ -112,7 +112,7 @@ public class SettlementController {
      * @return 分页结果
      */
     @GetMapping("/list")
-    public Result Result<PageResultResult<SettlementDTO>> getSettlementList(
+    public Result<PageResult<SettlementDTO>> getSettlementList(
             @RequestParam(required = false) Integer partyType,
             @RequestParam(required = false) Long partyId,
             @RequestParam(required = false) Integer status,
@@ -120,9 +120,9 @@ public class SettlementController {
             @RequestParam(defaultValue = "10") int pageSize) {
 
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-        Page Page<Settlement> page = settlementService.findSettlements(partyType, partyId, status, pageable);
+        Page<Settlement> page = settlementService.findSettlements(partyType, partyId, status, pageable);
 
-        List List<SettlementDTO> list = page.getContent()
+        List<SettlementDTO> list = page.getContent()
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -137,7 +137,7 @@ public class SettlementController {
      * @return 操作结果
      */
     @PostMapping("/{id}/confirm")
-    public Result Result<SettlementDTO> confirmSettlement(@PathVariable Long id) {
+    public Result<SettlementDTO> confirmSettlement(@PathVariable Long id) {
         Settlement settlement = settlementService.confirmSettlement(id);
         return Result.success(convertToDTO(settlement));
     }
@@ -150,7 +150,7 @@ public class SettlementController {
      * @return 操作结果
      */
     @PostMapping("/{id}/payment")
-    public Result Result<SettlementDTO> makePayment(@PathVariable Long id,
+    public Result<SettlementDTO> makePayment(@PathVariable Long id,
                                              @RequestBody Map<String, BigDecimal> params) {
         BigDecimal amount = params.get("amount");
         Settlement settlement = settlementService.makePayment(id, amount);
@@ -165,7 +165,7 @@ public class SettlementController {
      * @return 操作结果
      */
     @PostMapping("/{id}/cancel")
-    public Result Result<SettlementDTO> cancelSettlement(@PathVariable Long id,
+    public Result<SettlementDTO> cancelSettlement(@PathVariable Long id,
                                                   @RequestBody(required = false) Map<String, String> params) {
         String reason = params != null ? params.get("reason") : null;
         Settlement settlement = settlementService.cancelSettlement(id, reason);

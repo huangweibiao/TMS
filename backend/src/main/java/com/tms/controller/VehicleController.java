@@ -61,7 +61,7 @@ public class VehicleController {
     @DeleteMapping("/{id}")
     public Result<Void> deleteVehicle(@PathVariable Long id) {
         vehicleService.deleteVehicle(id);
-        return Result.success("删除成功");
+        return Result.success();
     }
 
     /**

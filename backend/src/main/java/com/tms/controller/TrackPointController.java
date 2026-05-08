@@ -41,7 +41,7 @@ public class TrackPointController {
      * @return 创建结果
      */
     @PostMapping
-    public Result Result<TrackPointDTO> createTrackPoint(@Valid @RequestBody TrackPointDTO dto) {
+    public Result<TrackPointDTO> createTrackPoint(@Valid @RequestBody TrackPointDTO dto) {
         TrackPoint trackPoint = trackPointService.createTrackPoint(dto);
         return Result.success(convertToDTO(trackPoint));
     }
@@ -53,9 +53,9 @@ public class TrackPointController {
      * @return 创建结果
      */
     @PostMapping("/batch")
-    public Result<List<List<TrackPointDTO>> batchCreateTrackPoints(@Valid @RequestBody List List<TrackPointDTO> dtoList) {
-        List List<TrackPoint> trackPoints = trackPointService.batchCreateTrackPoints(dtoList);
-        List List<TrackPointDTO> result = trackPoints.stream()
+    public Result<List<TrackPointDTO>> batchCreateTrackPoints(@Valid @RequestBody List<TrackPointDTO> dtoList) {
+        List<TrackPoint> trackPoints = trackPointService.batchCreateTrackPoints(dtoList);
+        List<TrackPointDTO> result = trackPoints.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
         return Result.success(result);
@@ -68,7 +68,7 @@ public class TrackPointController {
      * @return 轨迹点信息
      */
     @GetMapping("/{id}")
-    public Result Result<TrackPointDTO> getTrackPointById(@PathVariable Long id) {
+    public Result<TrackPointDTO> getTrackPointById(@PathVariable Long id) {
         return trackPointService.findById(id)
                 .map(this::convertToDTO)
                 .map(Result::success)
@@ -82,8 +82,8 @@ public class TrackPointController {
      * @return 轨迹点列表
      */
     @GetMapping("/by-dispatch/{dispatchId}")
-    public Result<List<List<TrackPointDTO>> getTrackPointsByDispatch(@PathVariable Long dispatchId) {
-        List List<TrackPointDTO> list = trackPointService.findByDispatchId(dispatchId)
+    public Result<List<TrackPointDTO>> getTrackPointsByDispatch(@PathVariable Long dispatchId) {
+        List<TrackPointDTO> list = trackPointService.findByDispatchId(dispatchId)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -99,11 +99,11 @@ public class TrackPointController {
      * @return 轨迹点列表
      */
     @GetMapping("/by-dispatch/{dispatchId}/time-range")
-    public Result<List<List<TrackPointDTO>> getTrackPointsByDispatchAndTimeRange(
+    public Result<List<TrackPointDTO>> getTrackPointsByDispatchAndTimeRange(
             @PathVariable Long dispatchId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
-        List List<TrackPointDTO> list = trackPointService.findByDispatchIdAndTimeRange(dispatchId, startTime, endTime)
+        List<TrackPointDTO> list = trackPointService.findByDispatchIdAndTimeRange(dispatchId, startTime, endTime)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -118,10 +118,10 @@ public class TrackPointController {
      * @return 轨迹点列表
      */
     @GetMapping("/by-vehicle/{vehicleId}/latest")
-    public Result<List<List<TrackPointDTO>> getLatestTrackPointsByVehicle(
+    public Result<List<TrackPointDTO>> getLatestTrackPointsByVehicle(
             @PathVariable Long vehicleId,
             @RequestParam(defaultValue = "100") int limit) {
-        List List<TrackPointDTO> list = trackPointService.findLatestByVehicleId(vehicleId, limit)
+        List<TrackPointDTO> list = trackPointService.findLatestByVehicleId(vehicleId, limit)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -140,7 +140,7 @@ public class TrackPointController {
      * @return 分页结果
      */
     @GetMapping("/list")
-    public Result Result<PageResultResult<TrackPointDTO>> getTrackPointList(
+    public Result<PageResult<TrackPointDTO>> getTrackPointList(
             @RequestParam(required = false) Long dispatchId,
             @RequestParam(required = false) Long vehicleId,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
@@ -149,9 +149,9 @@ public class TrackPointController {
             @RequestParam(defaultValue = "10") int pageSize) {
 
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-        Page Page<TrackPoint> page = trackPointService.findTrackPoints(dispatchId, vehicleId, startTime, endTime, pageable);
+        Page<TrackPoint> page = trackPointService.findTrackPoints(dispatchId, vehicleId, startTime, endTime, pageable);
 
-        List List<TrackPointDTO> list = page.getContent()
+        List<TrackPointDTO> list = page.getContent()
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());

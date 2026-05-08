@@ -113,24 +113,24 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     @Cacheable(value = "address", key = "#id")
-    public Optional Optional<Address> findById(Long id) {
+    public Optional<Address> findById(Long id) {
         return addressRepository.findById(id);
     }
 
     @Override
-    public List List<Address> findByCustomerId(Long customerId) {
+    public List<Address> findByCustomerId(Long customerId) {
         return addressRepository.findByCustomerId(customerId);
     }
 
     @Override
-    public List List<Address> findByCustomerIdAndType(Long customerId, Integer addressType) {
+    public List<Address> findByCustomerIdAndType(Long customerId, Integer addressType) {
         return addressRepository.findByCustomerIdAndAddressType(customerId, addressType);
     }
 
     @Override
-    public Page Page<Address> findAddresses(Long customerId, Integer addressType, Integer status, Pageable pageable) {
-        Specification Specification<Address> spec = (root, query, cb) -> {
-            List List<Predicate> predicates = new ArrayList<>();
+    public Page<Address> findAddresses(Long customerId, Integer addressType, Integer status, Pageable pageable) {
+        Specification<Address> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
 
             if (customerId != null) {
                 predicates.add(cb.equal(root.get("customerId"), customerId));
@@ -234,7 +234,7 @@ public class AddressServiceImpl implements AddressService {
      * 取消其他默认地址
      */
     private void cancelOtherDefaultAddresses(Long customerId, Integer addressType, Long excludeId) {
-        List List<Address> addresses = addressRepository.findByCustomerIdAndAddressType(customerId, addressType);
+        List<Address> addresses = addressRepository.findByCustomerIdAndAddressType(customerId, addressType);
         for (Address addr : addresses) {
             if (addr.getIsDefault() == 1 && (excludeId == null || !excludeId.equals(addr.getId()))) {
                 addr.setIsDefault(0);

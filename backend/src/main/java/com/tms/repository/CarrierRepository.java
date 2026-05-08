@@ -15,7 +15,7 @@ import java.util.Optional;
  * @version 1.0.0
  */
 @Repository
-public interface CarrierRepository extends JpaRepositoryRepository<Carrier, Long> {
+public interface CarrierRepository extends JpaRepository<Carrier, Long> {
 
     /**
      * 根据承运商编码查询承运商
@@ -23,7 +23,7 @@ public interface CarrierRepository extends JpaRepositoryRepository<Carrier, Long
      * @param carrierCode 承运商编码
      * @return 承运商对象
      */
-    Optional Optional<Carrier> findByCarrierCode(String carrierCode);
+    Optional<Carrier> findByCarrierCode(String carrierCode);
 
     /**
      * 分页查询承运商列表
@@ -33,7 +33,7 @@ public interface CarrierRepository extends JpaRepositoryRepository<Carrier, Long
      * @param pageable    分页参数
      * @return 承运商分页列表
      */
-    Page Page<Carrier> findByCarrierNameContainingAndStatus(String carrierName, Integer status, Pageable pageable);
+    Page<Carrier> findByCarrierNameContainingAndStatus(String carrierName, Integer status, Pageable pageable);
 
     /**
      * 检查承运商编码是否存在

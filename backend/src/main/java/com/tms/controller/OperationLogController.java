@@ -73,7 +73,7 @@ public class OperationLogController {
     @DeleteMapping("/{id}")
     public Result<Void> deleteOperationLog(@PathVariable Long id) {
         operationLogService.deleteOperationLog(id);
-        return Result.success("删除成功");
+        return Result.success();
     }
 
     /**
@@ -85,7 +85,7 @@ public class OperationLogController {
     @DeleteMapping("/batch")
     public Result<Void> deleteOperationLogs(@RequestBody List<Long> ids) {
         operationLogService.deleteOperationLogs(ids);
-        return Result.success("批量删除成功");
+        return Result.success();
     }
 
     /**
@@ -96,7 +96,7 @@ public class OperationLogController {
     @DeleteMapping("/clear")
     public Result<Void> clearOperationLogs() {
         operationLogService.clearOperationLogs();
-        return Result.success("清空成功");
+        return Result.success();
     }
 }
 

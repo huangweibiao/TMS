@@ -42,12 +42,12 @@ public class CostDetailServiceImpl implements CostDetailService {
 
     @Override
     @Transactional
-    public List List<CostDetailDTO> calculateCost(CostCalculateRequest request) {
+    public List<CostDetailDTO> calculateCost(CostCalculateRequest request) {
         // 验证运单
         Waybill waybill = waybillRepository.findById(request.getWaybillId())
                 .orElseThrow(() -> new BusinessException("运单不存在"));
 
-        List List<CostDetailDTO> result = new ArrayList<>();
+        List<CostDetailDTO> result = new ArrayList<>();
 
         // 计算基础运费
         BigDecimal freightAmount = calculateFreight(waybill, request);
@@ -117,37 +117,37 @@ public class CostDetailServiceImpl implements CostDetailService {
     }
 
     @Override
-    public List List<CostDetailDTO> getCostDetailsByWaybillId(Long waybillId) {
-        List List<CostDetail> details = costDetailRepository.findByWaybillId(waybillId);
+    public List<CostDetailDTO> getCostDetailsByWaybillId(Long waybillId) {
+        List<CostDetail> details = costDetailRepository.findByWaybillId(waybillId);
         return details.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public PageResultResult<CostDetailDTO> getCostDetailList(String waybillNo, Integer costType, int pageNum, int pageSize) {
+    public PageResult<CostDetailDTO> getCostDetailList(String waybillNo, Integer costType, int pageNum, int pageSize) {
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
 
-        Page Page<CostDetail> page;
+        Page<CostDetail> page;
         if (waybillNo != null && !waybillNo.isEmpty()) {
             // 先查询运单ID
             Waybill waybill = waybillRepository.findByWaybillNo(waybillNo)
                     .orElseThrow(() -> new BusinessException("运单不存在"));
             if (costType != null) {
-                List List<CostDetail> list = costDetailRepository.findByWaybillIdAndCostType(waybill.getId(), costType);
+                List<CostDetail> list = costDetailRepository.findByWaybillIdAndCostType(waybill.getId(), costType);
                 page = new org.springframework.data.domain.PageImpl<>(list, pageable, list.size());
             } else {
-                List List<CostDetail> list = costDetailRepository.findByWaybillId(waybill.getId());
+                List<CostDetail> list = costDetailRepository.findByWaybillId(waybill.getId());
                 page = new org.springframework.data.domain.PageImpl<>(list, pageable, list.size());
             }
         } else if (costType != null) {
-            List List<CostDetail> list = costDetailRepository.findByCostType(costType);
+            List<CostDetail> list = costDetailRepository.findByCostType(costType);
             page = new org.springframework.data.domain.PageImpl<>(list, pageable, list.size());
         } else {
             page = costDetailRepository.findAll(pageable);
         }
 
-        List List<CostDetailDTO> list = page.getContent().stream()
+        List<CostDetailDTO> list = page.getContent().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
 

@@ -47,24 +47,24 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List List<ReportDTO> getWaybillStatistics(LocalDate startDate, LocalDate endDate) {
-        List List<ReportDTO> result = new ArrayList<>();
+    public List<ReportDTO> getWaybillStatistics(LocalDate startDate, LocalDate endDate) {
+        List<ReportDTO> result = new ArrayList<>();
         
         // 获取日期范围内的运单
         LocalDateTime startTime = startDate.atStartOfDay();
         LocalDateTime endTime = endDate.plusDays(1).atStartOfDay();
         
-        List List<Waybill> waybills = waybillRepository.findAll().stream()
+        List<Waybill> waybills = waybillRepository.findAll().stream()
                 .filter(w -> w.getCreateTime() != null 
                         && !w.getCreateTime().isBefore(startTime) 
                         && w.getCreateTime().isBefore(endTime))
                 .collect(Collectors.toList());
         
         // 按日期分组统计
-        Map<String, List List<Waybill>> groupedByDate = waybills.stream()
+        Map<String, List<Waybill>> groupedByDate = waybills.stream()
                 .collect(Collectors.groupingBy(w -> w.getCreateTime().toLocalDate().toString()));
         
-        for (Map.Entry<String, List List<Waybill>> entry : groupedByDate.entrySet()) {
+        for (Map.Entry<String, List<Waybill>> entry : groupedByDate.entrySet()) {
             ReportDTO dto = new ReportDTO();
             dto.setDate(entry.getKey());
             dto.setWaybillCount((long) entry.getValue().size());
@@ -72,7 +72,7 @@ public class ReportServiceImpl implements ReportService {
             // 统计运费
             BigDecimal freightAmount = BigDecimal.ZERO;
             for (Waybill waybill : entry.getValue()) {
-                List List<CostDetail> costs = costDetailRepository.findByWaybillId(waybill.getId());
+                List<CostDetail> costs = costDetailRepository.findByWaybillId(waybill.getId());
                 for (CostDetail cost : costs) {
                     if (cost.getCostType() == 1 && cost.getDirection() == 1) {
                         freightAmount = freightAmount.add(cost.getAmount());
@@ -98,7 +98,7 @@ public class ReportServiceImpl implements ReportService {
         LocalDateTime endTime = endDate.plusDays(1).atStartOfDay();
         
         // 获取所有费用明细
-        List List<CostDetail> costDetails = costDetailRepository.findAll().stream()
+        List<CostDetail> costDetails = costDetailRepository.findAll().stream()
                 .filter(c -> c.getCreateTime() != null 
                         && !c.getCreateTime().isBefore(startTime) 
                         && c.getCreateTime().isBefore(endTime))
@@ -139,7 +139,7 @@ public class ReportServiceImpl implements ReportService {
         LocalDateTime endTime = endDate.plusDays(1).atStartOfDay();
         
         // 获取已完成的调度单
-        List List<Dispatch> dispatches = dispatchRepository.findAll().stream()
+        List<Dispatch> dispatches = dispatchRepository.findAll().stream()
                 .filter(d -> d.getActualEndTime() != null 
                         && !d.getActualEndTime().isBefore(startTime) 
                         && d.getActualEndTime().isBefore(endTime))
@@ -204,7 +204,7 @@ public class ReportServiceImpl implements ReportService {
         LocalDateTime endTime = endDate.plusDays(1).atStartOfDay();
         
         // 获取异常事件
-        List List<OnwayEvent> events = onwayEventRepository.findAll().stream()
+        List<OnwayEvent> events = onwayEventRepository.findAll().stream()
                 .filter(e -> e.getEventTime() != null 
                         && !e.getEventTime().isBefore(startTime) 
                         && e.getEventTime().isBefore(endTime))
@@ -258,7 +258,7 @@ public class ReportServiceImpl implements ReportService {
         
         // 本月运费收入
         BigDecimal monthIncome = BigDecimal.ZERO;
-        List List<CostDetail> monthCosts = costDetailRepository.findAll().stream()
+        List<CostDetail> monthCosts = costDetailRepository.findAll().stream()
                 .filter(c -> c.getCreateTime() != null 
                         && !c.getCreateTime().isBefore(monthStartTime)
                         && c.getDirection() == 1)

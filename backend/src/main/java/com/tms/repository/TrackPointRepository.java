@@ -4,6 +4,7 @@ import com.tms.entity.TrackPoint;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ import java.util.List;
  * @version 1.0.0
  */
 @Repository
-public interface TrackPointRepository extends JpaRepositoryRepository<TrackPoint, Long> {
+public interface TrackPointRepository extends JpaRepository<TrackPoint, Long>, JpaSpecificationExecutor<TrackPoint> {
 
     /**
      * 根据调度单ID查询轨迹点列表
@@ -24,7 +25,7 @@ public interface TrackPointRepository extends JpaRepositoryRepository<TrackPoint
      * @param dispatchId 调度单ID
      * @return 轨迹点列表
      */
-    List List<TrackPoint> findByDispatchIdOrderByLocationTimeAsc(Long dispatchId);
+    List<TrackPoint> findByDispatchIdOrderByLocationTimeAsc(Long dispatchId);
 
     /**
      * 根据调度单ID和时间范围查询轨迹点
@@ -34,7 +35,7 @@ public interface TrackPointRepository extends JpaRepositoryRepository<TrackPoint
      * @param endTime    结束时间
      * @return 轨迹点列表
      */
-    List List<TrackPoint> findByDispatchIdAndLocationTimeBetween(Long dispatchId, LocalDateTime startTime, LocalDateTime endTime);
+    List<TrackPoint> findByDispatchIdAndLocationTimeBetween(Long dispatchId, LocalDateTime startTime, LocalDateTime endTime);
 
     /**
      * 根据车辆ID查询最新轨迹点
@@ -43,5 +44,5 @@ public interface TrackPointRepository extends JpaRepositoryRepository<TrackPoint
      * @param pageable  分页参数
      * @return 轨迹点分页列表
      */
-    Page Page<TrackPoint> findByVehicleIdOrderByLocationTimeDesc(Long vehicleId, Pageable pageable);
+    Page<TrackPoint> findByVehicleIdOrderByLocationTimeDesc(Long vehicleId, Pageable pageable);
 }

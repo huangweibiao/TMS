@@ -128,7 +128,7 @@ public interface WaybillService {
      * @param splitItems  拆分明细
      * @return 新运单
      */
-    WaybillDTO splitWaybill(Long id, java.util.List.List<WaybillDTO> splitItems);
+    WaybillDTO splitWaybill(Long id, java.util.List<WaybillDTO> splitItems);
 
     /**
      * 合并运单

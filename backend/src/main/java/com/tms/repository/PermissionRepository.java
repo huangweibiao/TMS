@@ -14,7 +14,7 @@ import java.util.Optional;
  * @version 1.0.0
  */
 @Repository
-public interface PermissionRepository extends JpaRepositoryRepository<Permission, Long> {
+public interface PermissionRepository extends JpaRepository<Permission, Long> {
 
     /**
      * 根据权限编码查询权限
@@ -22,7 +22,7 @@ public interface PermissionRepository extends JpaRepositoryRepository<Permission
      * @param permissionCode 权限编码
      * @return 权限对象
      */
-    Optional Optional<Permission> findByPermissionCode(String permissionCode);
+    Optional<Permission> findByPermissionCode(String permissionCode);
 
     /**
      * 根据父权限ID查询权限列表
@@ -30,7 +30,7 @@ public interface PermissionRepository extends JpaRepositoryRepository<Permission
      * @param parentId 父权限ID
      * @return 权限列表
      */
-    List List<Permission> findByParentIdOrderBySortOrderAsc(Long parentId);
+    List<Permission> findByParentIdOrderBySortOrderAsc(Long parentId);
 
     /**
      * 根据权限类型查询权限列表
@@ -38,7 +38,7 @@ public interface PermissionRepository extends JpaRepositoryRepository<Permission
      * @param permissionType 权限类型
      * @return 权限列表
      */
-    List List<Permission> findByPermissionType(Integer permissionType);
+    List<Permission> findByPermissionType(Integer permissionType);
 
     /**
      * 根据状态查询权限列表
@@ -46,5 +46,5 @@ public interface PermissionRepository extends JpaRepositoryRepository<Permission
      * @param status 状态
      * @return 权限列表
      */
-    List List<Permission> findByStatus(Integer status);
+    List<Permission> findByStatus(Integer status);
 }

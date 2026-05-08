@@ -44,7 +44,7 @@ public interface PermissionService {
      * @param id 权限ID
      * @return 权限对象
      */
-    Optional Optional<Permission> findById(Long id);
+    Optional<Permission> findById(Long id);
 
     /**
      * 根据权限编码查询权限
@@ -52,14 +52,14 @@ public interface PermissionService {
      * @param permissionCode 权限编码
      * @return 权限对象
      */
-    Optional Optional<Permission> findByPermissionCode(String permissionCode);
+    Optional<Permission> findByPermissionCode(String permissionCode);
 
     /**
      * 查询所有权限列表
      *
      * @return 权限列表
      */
-    List List<Permission> findAll();
+    List<Permission> findAll();
 
     /**
      * 根据父权限ID查询权限列表
@@ -67,7 +67,7 @@ public interface PermissionService {
      * @param parentId 父权限ID
      * @return 权限列表
      */
-    List List<Permission> findByParentId(Long parentId);
+    List<Permission> findByParentId(Long parentId);
 
     /**
      * 根据权限类型查询权限列表
@@ -75,7 +75,7 @@ public interface PermissionService {
      * @param permissionType 权限类型
      * @return 权限列表
      */
-    List List<Permission> findByPermissionType(Integer permissionType);
+    List<Permission> findByPermissionType(Integer permissionType);
 
     /**
      * 根据状态查询权限列表
@@ -83,7 +83,7 @@ public interface PermissionService {
      * @param status 状态
      * @return 权限列表
      */
-    List List<Permission> findByStatus(Integer status);
+    List<Permission> findByStatus(Integer status);
 
     /**
      * 启用权限

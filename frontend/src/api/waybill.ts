@@ -3,12 +3,12 @@ import type { Waybill, PageResult, Result } from '@/types'
 
 export const waybillApi = {
   // 创建运单
-  create(data: Partial Partial<Waybill>): Promise<Result<Result<Waybill>> {
+  create(data: Partial<Waybill>): Promise<Result<Waybill>> {
     return request.post('/v1/waybills', data)
   },
 
   // 更新运单
-  update(id: number, data: Partial Partial<Waybill>): Promise<Result<Result<Waybill>> {
+  update(id: number, data: Partial<Waybill>): Promise<Result<Waybill>> {
     return request.put(`/v1/waybills/${id}`, data)
   },
 
@@ -18,12 +18,12 @@ export const waybillApi = {
   },
 
   // 根据ID查询运单
-  getById(id: number): Promise<Result<Result<Waybill>> {
+  getById(id: number): Promise<Result<Waybill>> {
     return request.get(`/v1/waybills/${id}`)
   },
 
   // 根据运单号查询运单
-  getByNo(waybillNo: string): Promise<Result<Result<Waybill>> {
+  getByNo(waybillNo: string): Promise<Result<Waybill>> {
     return request.get(`/v1/waybills/no/${waybillNo}`)
   },
 
@@ -33,7 +33,7 @@ export const waybillApi = {
     status?: number
     pageNum?: number
     pageSize?: number
-  }): Promise<Result<Result<PageResultResult<Waybill>>> {
+  }): Promise<Result<PageResult<Waybill>>> {
     return request.get('/v1/waybills', { params })
   },
 

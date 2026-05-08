@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1.0.0
  */
 @Repository
-public interface WaybillDetailRepository extends JpaRepositoryRepository<WaybillDetail, Long> {
+public interface WaybillDetailRepository extends JpaRepository<WaybillDetail, Long> {
 
     /**
      * 根据运单ID查询明细列表
@@ -21,7 +21,7 @@ public interface WaybillDetailRepository extends JpaRepositoryRepository<Waybill
      * @param waybillId 运单ID
      * @return 明细列表
      */
-    List List<WaybillDetail> findByWaybillId(Long waybillId);
+    List<WaybillDetail> findByWaybillId(Long waybillId);
 
     /**
      * 删除运单的所有明细

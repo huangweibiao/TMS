@@ -59,14 +59,14 @@ public class DispatchRuleEngineImpl implements DispatchRuleEngine {
         }
 
         // 获取所有可用司机
-        List List<Driver> availableDrivers = driverRepository.findByStatus(1);
+        List<Driver> availableDrivers = driverRepository.findByStatus(1);
 
         if (availableDrivers.isEmpty()) {
             return null;
         }
 
         // 计算每个车辆-司机组合的匹配分数
-        List List<DispatchPlan> plans = new ArrayList<>();
+        List<DispatchPlan> plans = new ArrayList<>();
         for (Vehicle vehicle : suitableVehicles) {
             for (Driver driver : availableDrivers) {
                 // 检查司机是否绑定了该车辆
@@ -88,8 +88,8 @@ public class DispatchRuleEngineImpl implements DispatchRuleEngine {
     }
 
     @Override
-    public List List<DispatchPlan> batchAssignVehicles(List(List<Waybill> waybills, StrategyType strategyType) {
-        List List<DispatchPlan> plans = new ArrayList<>();
+    public List<DispatchPlan> batchAssignVehicles(List<Waybill> waybills, StrategyType strategyType) {
+        List<DispatchPlan> plans = new ArrayList<>();
 
         // 简化的批量调度：逐个处理
         for (Waybill waybill : waybills) {
@@ -119,7 +119,7 @@ public class DispatchRuleEngineImpl implements DispatchRuleEngine {
         routePlan.setEstimatedTime(estimatedTime);
 
         // 生成路段信息
-        List List<RouteSegment> segments = new ArrayList<>();
+        List<RouteSegment> segments = new ArrayList<>();
         String currentFrom = startAddress;
 
         if (waypoints != null && !waypoints.isEmpty()) {
@@ -307,7 +307,7 @@ public class DispatchRuleEngineImpl implements DispatchRuleEngine {
     /**
      * 选择最优方案
      */
-    private DispatchPlan selectBestPlan(List(List<DispatchPlan> plans, StrategyType strategyType) {
+    private DispatchPlan selectBestPlan(List<DispatchPlan> plans, StrategyType strategyType) {
         switch (strategyType) {
             case DISTANCE_FIRST:
                 return plans.stream()

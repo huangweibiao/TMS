@@ -36,7 +36,7 @@ public class PermissionServiceImpl implements PermissionService {
     @CachePut(value = "permission", key = "#result.id")
     public Permission createPermission(PermissionDTO dto) {
         // 检查权限编码是否已存在
-        Optional Optional<Permission> existingPermission = permissionRepository.findByPermissionCode(dto.getPermissionCode());
+        Optional<Permission> existingPermission = permissionRepository.findByPermissionCode(dto.getPermissionCode());
         if (existingPermission.isPresent()) {
             throw new BusinessException("权限编码已存在");
         }
@@ -67,7 +67,7 @@ public class PermissionServiceImpl implements PermissionService {
                 .orElseThrow(() -> new BusinessException("权限不存在"));
 
         // 检查权限编码是否被其他权限使用
-        Optional Optional<Permission> existingPermission = permissionRepository.findByPermissionCode(dto.getPermissionCode());
+        Optional<Permission> existingPermission = permissionRepository.findByPermissionCode(dto.getPermissionCode());
         if (existingPermission.isPresent() && !existingPermission.get().getId().equals(id)) {
             throw new BusinessException("权限编码已存在");
         }
@@ -99,7 +99,7 @@ public class PermissionServiceImpl implements PermissionService {
                 .orElseThrow(() -> new BusinessException("权限不存在"));
 
         // 检查是否有子权限
-        List List<Permission> children = permissionRepository.findByParentIdOrderBySortOrderAsc(id);
+        List<Permission> children = permissionRepository.findByParentIdOrderBySortOrderAsc(id);
         if (!children.isEmpty()) {
             throw new BusinessException("该权限下存在子权限，不能删除");
         }
@@ -109,34 +109,34 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     @Cacheable(value = "permission", key = "#id")
-    public Optional Optional<Permission> findById(Long id) {
+    public Optional<Permission> findById(Long id) {
         return permissionRepository.findById(id);
     }
 
     @Override
     @Cacheable(value = "permission", key = "#permissionCode")
-    public Optional Optional<Permission> findByPermissionCode(String permissionCode) {
+    public Optional<Permission> findByPermissionCode(String permissionCode) {
         return permissionRepository.findByPermissionCode(permissionCode);
     }
 
     @Override
     @Cacheable(value = "permission", key = "'all'")
-    public List List<Permission> findAll() {
+    public List<Permission> findAll() {
         return permissionRepository.findAll();
     }
 
     @Override
-    public List List<Permission> findByParentId(Long parentId) {
+    public List<Permission> findByParentId(Long parentId) {
         return permissionRepository.findByParentIdOrderBySortOrderAsc(parentId);
     }
 
     @Override
-    public List List<Permission> findByPermissionType(Integer permissionType) {
+    public List<Permission> findByPermissionType(Integer permissionType) {
         return permissionRepository.findByPermissionType(permissionType);
     }
 
     @Override
-    public List List<Permission> findByStatus(Integer status) {
+    public List<Permission> findByStatus(Integer status) {
         return permissionRepository.findByStatus(status);
     }
 

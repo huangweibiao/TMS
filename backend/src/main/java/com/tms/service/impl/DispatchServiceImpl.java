@@ -174,10 +174,10 @@ public class DispatchServiceImpl implements DispatchService {
     }
 
     @Override
-    public PageResultResult<DispatchDTO> getDispatchList(String dispatchNo, Integer status, int pageNum, int pageSize) {
+    public PageResult<DispatchDTO> getDispatchList(String dispatchNo, Integer status, int pageNum, int pageSize) {
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
 
-        Page Page<Dispatch> page;
+        Page<Dispatch> page;
         if (dispatchNo != null && !dispatchNo.isEmpty()) {
             page = dispatchRepository.findByDispatchNoContainingAndDispatchStatus(dispatchNo, status != null ? status : 1, pageable);
         } else if (status != null) {
@@ -186,7 +186,7 @@ public class DispatchServiceImpl implements DispatchService {
             page = dispatchRepository.findAll(pageable);
         }
 
-        List List<DispatchDTO> list = page.getContent().stream()
+        List<DispatchDTO> list = page.getContent().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
 

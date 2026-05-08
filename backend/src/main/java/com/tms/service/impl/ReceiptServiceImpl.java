@@ -53,7 +53,7 @@ public class ReceiptServiceImpl implements ReceiptService {
                 .orElseThrow(() -> new BusinessException("运单不存在"));
 
         // 检查是否已存在回单
-        Optional Optional<Receipt> existingReceipt = receiptRepository.findByWaybillId(dto.getWaybillId());
+        Optional<Receipt> existingReceipt = receiptRepository.findByWaybillId(dto.getWaybillId());
         if (existingReceipt.isPresent()) {
             throw new BusinessException("该运单已存在回单");
         }
@@ -116,25 +116,25 @@ public class ReceiptServiceImpl implements ReceiptService {
 
     @Override
     @Cacheable(value = "receipt", key = "#id")
-    public Optional Optional<Receipt> findById(Long id) {
+    public Optional<Receipt> findById(Long id) {
         return receiptRepository.findById(id);
     }
 
     @Override
     @Cacheable(value = "receipt", key = "#receiptNo")
-    public Optional Optional<Receipt> findByReceiptNo(String receiptNo) {
+    public Optional<Receipt> findByReceiptNo(String receiptNo) {
         return receiptRepository.findByReceiptNo(receiptNo);
     }
 
     @Override
-    public Optional Optional<Receipt> findByWaybillId(Long waybillId) {
+    public Optional<Receipt> findByWaybillId(Long waybillId) {
         return receiptRepository.findByWaybillId(waybillId);
     }
 
     @Override
-    public Page Page<Receipt> findReceipts(String receiptNo, Integer status, Pageable pageable) {
-        Specification Specification<Receipt> spec = (root, query, cb) -> {
-            List List<Predicate> predicates = new ArrayList<>();
+    public Page<Receipt> findReceipts(String receiptNo, Integer status, Pageable pageable) {
+        Specification<Receipt> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
 
             if (StringUtils.hasText(receiptNo)) {
                 predicates.add(cb.like(root.get("receiptNo"), "%" + receiptNo + "%"));

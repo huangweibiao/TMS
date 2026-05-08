@@ -32,7 +32,7 @@ public class WaybillController {
      * @return 创建结果
      */
     @PostMapping
-    public Result Result<WaybillDTO> createWaybill(@Valid @RequestBody WaybillDTO waybillDTO) {
+    public Result<WaybillDTO> createWaybill(@Valid @RequestBody WaybillDTO waybillDTO) {
         WaybillDTO result = waybillService.createWaybill(waybillDTO);
         return Result.success("创建成功", result);
     }
@@ -45,7 +45,7 @@ public class WaybillController {
      * @return 更新结果
      */
     @PutMapping("/{id}")
-    public Result Result<WaybillDTO> updateWaybill(@PathVariable Long id, @Valid @RequestBody WaybillDTO waybillDTO) {
+    public Result<WaybillDTO> updateWaybill(@PathVariable Long id, @Valid @RequestBody WaybillDTO waybillDTO) {
         WaybillDTO result = waybillService.updateWaybill(id, waybillDTO);
         return Result.success("更新成功", result);
     }
@@ -59,7 +59,7 @@ public class WaybillController {
     @DeleteMapping("/{id}")
     public Result<Void> deleteWaybill(@PathVariable Long id) {
         waybillService.deleteWaybill(id);
-        return Result.success("删除成功");
+        return Result.success();
     }
 
     /**
@@ -69,7 +69,7 @@ public class WaybillController {
      * @return 运单信息
      */
     @GetMapping("/{id}")
-    public Result Result<WaybillDTO> getWaybillById(@PathVariable Long id) {
+    public Result<WaybillDTO> getWaybillById(@PathVariable Long id) {
         WaybillDTO result = waybillService.getWaybillById(id);
         return Result.success(result);
     }
@@ -81,7 +81,7 @@ public class WaybillController {
      * @return 运单信息
      */
     @GetMapping("/no/{waybillNo}")
-    public Result Result<WaybillDTO> getWaybillByNo(@PathVariable String waybillNo) {
+    public Result<WaybillDTO> getWaybillByNo(@PathVariable String waybillNo) {
         WaybillDTO result = waybillService.getWaybillByNo(waybillNo);
         return Result.success(result);
     }
@@ -96,12 +96,12 @@ public class WaybillController {
      * @return 运单分页列表
      */
     @GetMapping
-    public Result Result<PageResultResult<WaybillDTO>> getWaybillList(
+    public Result<PageResult<WaybillDTO>> getWaybillList(
             @RequestParam(required = false) String waybillNo,
             @RequestParam(required = false) Integer status,
             @RequestParam(defaultValue = "1") int pageNum,
             @RequestParam(defaultValue = "10") int pageSize) {
-        PageResultResult<WaybillDTO> result = waybillService.getWaybillList(waybillNo, status, pageNum, pageSize);
+        PageResult<WaybillDTO> result = waybillService.getWaybillList(waybillNo, status, pageNum, pageSize);
         return Result.success(result);
     }
 
@@ -119,7 +119,7 @@ public class WaybillController {
             @RequestParam Integer status,
             @RequestParam(required = false) String remark) {
         waybillService.updateWaybillStatus(id, status, remark);
-        return Result.success("状态更新成功");
+        return Result.success();
     }
 
     /**
@@ -134,7 +134,7 @@ public class WaybillController {
             @PathVariable Long id,
             @RequestParam(required = false) String remark) {
         waybillService.cancelWaybill(id, remark);
-        return Result.success("运单已取消");
+        return Result.success();
     }
 }
 

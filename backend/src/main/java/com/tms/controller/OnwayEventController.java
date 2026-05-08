@@ -42,7 +42,7 @@ public class OnwayEventController {
      * @return 创建结果
      */
     @PostMapping
-    public Result Result<OnwayEventDTO> createEvent(@Valid @RequestBody OnwayEventDTO dto) {
+    public Result<OnwayEventDTO> createEvent(@Valid @RequestBody OnwayEventDTO dto) {
         OnwayEvent event = onwayEventService.createEvent(dto);
         return Result.success(convertToDTO(event));
     }
@@ -55,7 +55,7 @@ public class OnwayEventController {
      * @return 更新结果
      */
     @PutMapping("/{id}")
-    public Result Result<OnwayEventDTO> updateEvent(@PathVariable Long id,
+    public Result<OnwayEventDTO> updateEvent(@PathVariable Long id,
                                              @Valid @RequestBody OnwayEventDTO dto) {
         OnwayEvent event = onwayEventService.updateEvent(id, dto);
         return Result.success(convertToDTO(event));
@@ -80,7 +80,7 @@ public class OnwayEventController {
      * @return 在途事件信息
      */
     @GetMapping("/{id}")
-    public Result Result<OnwayEventDTO> getEventById(@PathVariable Long id) {
+    public Result<OnwayEventDTO> getEventById(@PathVariable Long id) {
         return onwayEventService.findById(id)
                 .map(this::convertToDTO)
                 .map(Result::success)
@@ -94,8 +94,8 @@ public class OnwayEventController {
      * @return 事件列表
      */
     @GetMapping("/by-dispatch/{dispatchId}")
-    public Result<List<List<OnwayEventDTO>> getEventsByDispatch(@PathVariable Long dispatchId) {
-        List List<OnwayEventDTO> list = onwayEventService.findByDispatchId(dispatchId)
+    public Result<List<OnwayEventDTO>> getEventsByDispatch(@PathVariable Long dispatchId) {
+        List<OnwayEventDTO> list = onwayEventService.findByDispatchId(dispatchId)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -114,7 +114,7 @@ public class OnwayEventController {
      * @return 分页结果
      */
     @GetMapping("/list")
-    public Result Result<PageResultResult<OnwayEventDTO>> getEventList(
+    public Result<PageResult<OnwayEventDTO>> getEventList(
             @RequestParam(required = false) Long dispatchId,
             @RequestParam(required = false) Integer eventType,
             @RequestParam(required = false) Integer eventLevel,
@@ -123,9 +123,9 @@ public class OnwayEventController {
             @RequestParam(defaultValue = "10") int pageSize) {
 
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-        Page Page<OnwayEvent> page = onwayEventService.findEvents(dispatchId, eventType, eventLevel, isHandled, pageable);
+        Page<OnwayEvent> page = onwayEventService.findEvents(dispatchId, eventType, eventLevel, isHandled, pageable);
 
-        List List<OnwayEventDTO> list = page.getContent()
+        List<OnwayEventDTO> list = page.getContent()
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -142,7 +142,7 @@ public class OnwayEventController {
      * @return 操作结果
      */
     @PostMapping("/{id}/handle")
-    public Result Result<OnwayEventDTO> handleEvent(@PathVariable Long id,
+    public Result<OnwayEventDTO> handleEvent(@PathVariable Long id,
                                              @RequestBody Map<String, String> params,
                                              Authentication authentication) {
         String handleResult = params.get("handleResult");

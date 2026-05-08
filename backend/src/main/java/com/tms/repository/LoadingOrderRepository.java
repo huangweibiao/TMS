@@ -2,6 +2,7 @@ package com.tms.repository;
 
 import com.tms.entity.LoadingOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -16,7 +17,7 @@ import java.util.Optional;
  * @version 1.0.0
  */
 @Repository
-public interface LoadingOrderRepository extends JpaRepositoryRepository<LoadingOrder, Long> {
+public interface LoadingOrderRepository extends JpaRepository<LoadingOrder, Long>, JpaSpecificationExecutor<LoadingOrder> {
 
     /**
      * 根据装货单号查询装货单
@@ -24,7 +25,7 @@ public interface LoadingOrderRepository extends JpaRepositoryRepository<LoadingO
      * @param loadingNo 装货单号
      * @return 装货单对象
      */
-    Optional Optional<LoadingOrder> findByLoadingNo(String loadingNo);
+    Optional<LoadingOrder> findByLoadingNo(String loadingNo);
 
     /**
      * 根据调度单ID查询装货单列表
@@ -32,7 +33,7 @@ public interface LoadingOrderRepository extends JpaRepositoryRepository<LoadingO
      * @param dispatchId 调度单ID
      * @return 装货单列表
      */
-    List List<LoadingOrder> findByDispatchId(Long dispatchId);
+    List<LoadingOrder> findByDispatchId(Long dispatchId);
 
     /**
      * 查询指定前缀的最大装货单号

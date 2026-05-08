@@ -79,12 +79,12 @@ public class CarrierServiceImpl implements CarrierService {
     }
 
     @Override
-    public PageResultResult<CarrierDTO> getCarrierList(String carrierName, Integer status, int pageNum, int pageSize) {
+    public PageResult<CarrierDTO> getCarrierList(String carrierName, Integer status, int pageNum, int pageSize) {
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
         String searchName = carrierName == null ? "" : carrierName;
         Integer searchStatus = status == null ? 1 : status;
-        Page Page<Carrier> page = carrierRepository.findByCarrierNameContainingAndStatus(searchName, searchStatus, pageable);
-        List List<CarrierDTO> list = page.getContent().stream()
+        Page<Carrier> page = carrierRepository.findByCarrierNameContainingAndStatus(searchName, searchStatus, pageable);
+        List<CarrierDTO> list = page.getContent().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
         return new PageResult<>(pageNum, pageSize, page.getTotalElements(), list);

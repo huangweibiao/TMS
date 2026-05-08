@@ -45,7 +45,7 @@ public interface ReceiptService {
      * @param id 回单ID
      * @return 回单对象
      */
-    Optional Optional<Receipt> findById(Long id);
+    Optional<Receipt> findById(Long id);
 
     /**
      * 根据回单号查询
@@ -53,7 +53,7 @@ public interface ReceiptService {
      * @param receiptNo 回单号
      * @return 回单对象
      */
-    Optional Optional<Receipt> findByReceiptNo(String receiptNo);
+    Optional<Receipt> findByReceiptNo(String receiptNo);
 
     /**
      * 根据运单ID查询回单
@@ -61,7 +61,7 @@ public interface ReceiptService {
      * @param waybillId 运单ID
      * @return 回单对象
      */
-    Optional Optional<Receipt> findByWaybillId(Long waybillId);
+    Optional<Receipt> findByWaybillId(Long waybillId);
 
     /**
      * 分页查询回单列表
@@ -71,7 +71,7 @@ public interface ReceiptService {
      * @param pageable  分页参数
      * @return 分页结果
      */
-    Page Page<Receipt> findReceipts(String receiptNo, Integer status, Pageable pageable);
+    Page<Receipt> findReceipts(String receiptNo, Integer status, Pageable pageable);
 
     /**
      * 回传回单

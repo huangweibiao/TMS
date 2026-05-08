@@ -75,8 +75,8 @@ public class TrackPointServiceImpl implements TrackPointService {
     @Override
     @Transactional
     @CacheEvict(value = "trackPoint", allEntries = true)
-    public List List<TrackPoint> batchCreateTrackPoints(List(List<TrackPointDTO> dtoList) {
-        List List<TrackPoint> trackPoints = dtoList.stream().map(dto -> {
+    public List<TrackPoint> batchCreateTrackPoints(List<TrackPointDTO> dtoList) {
+        List<TrackPoint> trackPoints = dtoList.stream().map(dto -> {
             TrackPoint trackPoint = new TrackPoint();
             trackPoint.setDispatchId(dto.getDispatchId());
             trackPoint.setVehicleId(dto.getVehicleId());
@@ -93,31 +93,31 @@ public class TrackPointServiceImpl implements TrackPointService {
 
     @Override
     @Cacheable(value = "trackPoint", key = "#id")
-    public Optional Optional<TrackPoint> findById(Long id) {
+    public Optional<TrackPoint> findById(Long id) {
         return trackPointRepository.findById(id);
     }
 
     @Override
     @Cacheable(value = "trackPoint", key = "'dispatch:' + #dispatchId")
-    public List List<TrackPoint> findByDispatchId(Long dispatchId) {
+    public List<TrackPoint> findByDispatchId(Long dispatchId) {
         return trackPointRepository.findByDispatchIdOrderByLocationTimeAsc(dispatchId);
     }
 
     @Override
-    public List List<TrackPoint> findByDispatchIdAndTimeRange(Long dispatchId, LocalDateTime startTime, LocalDateTime endTime) {
+    public List<TrackPoint> findByDispatchIdAndTimeRange(Long dispatchId, LocalDateTime startTime, LocalDateTime endTime) {
         return trackPointRepository.findByDispatchIdAndLocationTimeBetween(dispatchId, startTime, endTime);
     }
 
     @Override
-    public List List<TrackPoint> findLatestByVehicleId(Long vehicleId, int limit) {
+    public List<TrackPoint> findLatestByVehicleId(Long vehicleId, int limit) {
         Pageable pageable = PageRequest.of(0, limit);
         return trackPointRepository.findByVehicleIdOrderByLocationTimeDesc(vehicleId, pageable).getContent();
     }
 
     @Override
-    public Page Page<TrackPoint> findTrackPoints(Long dispatchId, Long vehicleId, LocalDateTime startTime, LocalDateTime endTime, Pageable pageable) {
-        Specification Specification<TrackPoint> spec = (root, query, cb) -> {
-            List List<Predicate> predicates = new ArrayList<>();
+    public Page<TrackPoint> findTrackPoints(Long dispatchId, Long vehicleId, LocalDateTime startTime, LocalDateTime endTime, Pageable pageable) {
+        Specification<TrackPoint> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
 
             if (dispatchId != null) {
                 predicates.add(cb.equal(root.get("dispatchId"), dispatchId));
@@ -147,7 +147,7 @@ public class TrackPointServiceImpl implements TrackPointService {
     public long deleteTrackPointsBefore(LocalDateTime beforeTime) {
         // 这里使用原生SQL或自定义删除逻辑
         // 简化实现，实际可能需要批量删除
-        List List<TrackPoint> pointsToDelete = trackPointRepository.findAll().stream()
+        List<TrackPoint> pointsToDelete = trackPointRepository.findAll().stream()
                 .filter(tp -> tp.getLocationTime().isBefore(beforeTime))
                 .collect(Collectors.toList());
         

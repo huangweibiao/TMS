@@ -18,7 +18,7 @@ import java.util.Optional;
  * @version 1.0.0
  */
 @Repository
-public interface WaybillRepository extends JpaRepositoryRepository<Waybill, Long> {
+public interface WaybillRepository extends JpaRepository<Waybill, Long> {
 
     /**
      * 根据运单号查询运单
@@ -26,7 +26,7 @@ public interface WaybillRepository extends JpaRepositoryRepository<Waybill, Long
      * @param waybillNo 运单号
      * @return 运单对象
      */
-    Optional Optional<Waybill> findByWaybillNo(String waybillNo);
+    Optional<Waybill> findByWaybillNo(String waybillNo);
 
     /**
      * 根据客户ID和状态分页查询运单
@@ -36,7 +36,7 @@ public interface WaybillRepository extends JpaRepositoryRepository<Waybill, Long
      * @param pageable   分页参数
      * @return 运单分页列表
      */
-    Page Page<Waybill> findByCustomerIdAndWaybillStatus(Long customerId, Integer status, Pageable pageable);
+    Page<Waybill> findByCustomerIdAndWaybillStatus(Long customerId, Integer status, Pageable pageable);
 
     /**
      * 检查运单号是否存在
@@ -53,7 +53,7 @@ public interface WaybillRepository extends JpaRepositoryRepository<Waybill, Long
      * @param pageable        分页参数
      * @return 运单分页列表
      */
-    Page Page<Waybill> findByWaybillNoContaining(String waybillNoPrefix, Pageable pageable);
+    Page<Waybill> findByWaybillNoContaining(String waybillNoPrefix, Pageable pageable);
 
     /**
      * 根据状态查询运单
@@ -62,7 +62,7 @@ public interface WaybillRepository extends JpaRepositoryRepository<Waybill, Long
      * @param pageable 分页参数
      * @return 运单分页列表
      */
-    Page Page<Waybill> findByWaybillStatus(Integer status, Pageable pageable);
+    Page<Waybill> findByWaybillStatus(Integer status, Pageable pageable);
 
     /**
      * 查询指定前缀的最大运单号

@@ -119,24 +119,24 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Cacheable(value = "role", key = "#id")
-    public Optional Optional<Role> findById(Long id) {
+    public Optional<Role> findById(Long id) {
         return roleRepository.findById(id);
     }
 
     @Override
     @Cacheable(value = "role", key = "#roleCode")
-    public Optional Optional<Role> findByRoleCode(String roleCode) {
+    public Optional<Role> findByRoleCode(String roleCode) {
         return roleRepository.findByRoleCode(roleCode);
     }
 
     @Override
     @Cacheable(value = "role", key = "'all'")
-    public List List<Role> findAll() {
+    public List<Role> findAll() {
         return roleRepository.findAll();
     }
 
     @Override
-    public List List<Role> findByStatus(Integer status) {
+    public List<Role> findByStatus(Integer status) {
         return roleRepository.findByStatus(status);
     }
 
@@ -195,7 +195,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List List<Role> getRolesByUserId(Long userId) {
+    public List<Role> getRolesByUserId(Long userId) {
         List<Long> roleIds = userRoleRepository.findByUserId(userId).stream()
                 .map(UserRole::getRoleId)
                 .collect(Collectors.toList());

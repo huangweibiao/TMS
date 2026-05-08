@@ -14,7 +14,7 @@ import java.util.Optional;
  * @version 1.0.0
  */
 @Repository
-public interface RoleRepository extends JpaRepositoryRepository<Role, Long> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
 
     /**
      * 根据角色编码查询角色
@@ -22,7 +22,7 @@ public interface RoleRepository extends JpaRepositoryRepository<Role, Long> {
      * @param roleCode 角色编码
      * @return 角色对象
      */
-    Optional Optional<Role> findByRoleCode(String roleCode);
+    Optional<Role> findByRoleCode(String roleCode);
 
     /**
      * 检查角色编码是否存在
@@ -38,5 +38,5 @@ public interface RoleRepository extends JpaRepositoryRepository<Role, Long> {
      * @param status 状态
      * @return 角色列表
      */
-    List List<Role> findByStatus(Integer status);
+    List<Role> findByStatus(Integer status);
 }

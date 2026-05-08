@@ -89,15 +89,15 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public PageResultResult<CustomerDTO> getCustomerList(String customerName, Integer status, int pageNum, int pageSize) {
+    public PageResult<CustomerDTO> getCustomerList(String customerName, Integer status, int pageNum, int pageSize) {
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
         String searchName = customerName == null ? "" : customerName;
         Integer searchStatus = status == null ? 1 : status;
 
-        Page Page<Customer> page = customerRepository.findByCustomerNameContainingAndStatus(
+        Page<Customer> page = customerRepository.findByCustomerNameContainingAndStatus(
                 searchName, searchStatus, pageable);
 
-        List List<CustomerDTO> list = page.getContent().stream()
+        List<CustomerDTO> list = page.getContent().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
 

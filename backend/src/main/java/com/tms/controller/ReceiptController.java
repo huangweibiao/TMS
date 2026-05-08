@@ -42,7 +42,7 @@ public class ReceiptController {
      * @return 创建结果
      */
     @PostMapping
-    public Result Result<ReceiptDTO> createReceipt(@Valid @RequestBody ReceiptDTO dto) {
+    public Result<ReceiptDTO> createReceipt(@Valid @RequestBody ReceiptDTO dto) {
         Receipt receipt = receiptService.createReceipt(dto);
         return Result.success(convertToDTO(receipt));
     }
@@ -55,7 +55,7 @@ public class ReceiptController {
      * @return 更新结果
      */
     @PutMapping("/{id}")
-    public Result Result<ReceiptDTO> updateReceipt(@PathVariable Long id,
+    public Result<ReceiptDTO> updateReceipt(@PathVariable Long id,
                                             @Valid @RequestBody ReceiptDTO dto) {
         Receipt receipt = receiptService.updateReceipt(id, dto);
         return Result.success(convertToDTO(receipt));
@@ -80,7 +80,7 @@ public class ReceiptController {
      * @return 回单信息
      */
     @GetMapping("/{id}")
-    public Result Result<ReceiptDTO> getReceiptById(@PathVariable Long id) {
+    public Result<ReceiptDTO> getReceiptById(@PathVariable Long id) {
         return receiptService.findById(id)
                 .map(this::convertToDTO)
                 .map(Result::success)
@@ -94,7 +94,7 @@ public class ReceiptController {
      * @return 回单信息
      */
     @GetMapping("/by-no/{receiptNo}")
-    public Result Result<ReceiptDTO> getReceiptByNo(@PathVariable String receiptNo) {
+    public Result<ReceiptDTO> getReceiptByNo(@PathVariable String receiptNo) {
         return receiptService.findByReceiptNo(receiptNo)
                 .map(this::convertToDTO)
                 .map(Result::success)
@@ -108,7 +108,7 @@ public class ReceiptController {
      * @return 回单信息
      */
     @GetMapping("/by-waybill/{waybillId}")
-    public Result Result<ReceiptDTO> getReceiptByWaybill(@PathVariable Long waybillId) {
+    public Result<ReceiptDTO> getReceiptByWaybill(@PathVariable Long waybillId) {
         return receiptService.findByWaybillId(waybillId)
                 .map(this::convertToDTO)
                 .map(Result::success)
@@ -125,16 +125,16 @@ public class ReceiptController {
      * @return 分页结果
      */
     @GetMapping("/list")
-    public Result Result<PageResultResult<ReceiptDTO>> getReceiptList(
+    public Result<PageResult<ReceiptDTO>> getReceiptList(
             @RequestParam(required = false) String receiptNo,
             @RequestParam(required = false) Integer status,
             @RequestParam(defaultValue = "1") int pageNum,
             @RequestParam(defaultValue = "10") int pageSize) {
 
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-        Page Page<Receipt> page = receiptService.findReceipts(receiptNo, status, pageable);
+        Page<Receipt> page = receiptService.findReceipts(receiptNo, status, pageable);
 
-        List List<ReceiptDTO> list = page.getContent()
+        List<ReceiptDTO> list = page.getContent()
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -149,7 +149,7 @@ public class ReceiptController {
      * @return 操作结果
      */
     @PostMapping("/{id}/return")
-    public Result Result<ReceiptDTO> returnReceipt(@PathVariable Long id) {
+    public Result<ReceiptDTO> returnReceipt(@PathVariable Long id) {
         Receipt receipt = receiptService.returnReceipt(id);
         return Result.success(convertToDTO(receipt));
     }
@@ -162,7 +162,7 @@ public class ReceiptController {
      * @return 操作结果
      */
     @PostMapping("/{id}/audit")
-    public Result Result<ReceiptDTO> auditReceipt(@PathVariable Long id,
+    public Result<ReceiptDTO> auditReceipt(@PathVariable Long id,
                                            Authentication authentication) {
         String auditBy = authentication.getName();
         Receipt receipt = receiptService.auditReceipt(id, auditBy);

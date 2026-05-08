@@ -69,5 +69,5 @@ public interface DriverService {
      *
      * @return 可用司机列表
      */
-    List List<DriverDTO> getAvailableDrivers();
+    List<DriverDTO> getAvailableDrivers();
 }

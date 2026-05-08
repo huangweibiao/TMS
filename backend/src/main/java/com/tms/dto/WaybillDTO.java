@@ -166,7 +166,7 @@ public class WaybillDTO {
     /**
      * 运单明细列表
      */
-    private List List<WaybillDetailDTO> details;
+    private List<WaybillDetailDTO> details;
 
     // Getters and Setters
     public Long getId() {
@@ -401,11 +401,11 @@ public class WaybillDTO {
         this.createBy = createBy;
     }
 
-    public List List<WaybillDetailDTO> getDetails() {
+    public List<WaybillDetailDTO> getDetails() {
         return details;
     }
 
-    public void setDetails(List(List<WaybillDetailDTO> details) {
+    public void setDetails(List<WaybillDetailDTO> details) {
         this.details = details;
     }
 }

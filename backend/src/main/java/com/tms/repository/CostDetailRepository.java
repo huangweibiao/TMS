@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1.0.0
  */
 @Repository
-public interface CostDetailRepository extends JpaRepositoryRepository<CostDetail, Long> {
+public interface CostDetailRepository extends JpaRepository<CostDetail, Long> {
 
     /**
      * 根据运单ID查询费用明细
@@ -21,7 +21,7 @@ public interface CostDetailRepository extends JpaRepositoryRepository<CostDetail
      * @param waybillId 运单ID
      * @return 费用明细列表
      */
-    List List<CostDetail> findByWaybillId(Long waybillId);
+    List<CostDetail> findByWaybillId(Long waybillId);
 
     /**
      * 根据运单ID和费用类型查询费用明细
@@ -30,7 +30,7 @@ public interface CostDetailRepository extends JpaRepositoryRepository<CostDetail
      * @param costType  费用类型
      * @return 费用明细列表
      */
-    List List<CostDetail> findByWaybillIdAndCostType(Long waybillId, Integer costType);
+    List<CostDetail> findByWaybillIdAndCostType(Long waybillId, Integer costType);
 
     /**
      * 根据结算单ID查询费用明细
@@ -38,7 +38,7 @@ public interface CostDetailRepository extends JpaRepositoryRepository<CostDetail
      * @param settlementId 结算单ID
      * @return 费用明细列表
      */
-    List List<CostDetail> findBySettlementId(Long settlementId);
+    List<CostDetail> findBySettlementId(Long settlementId);
 
     /**
      * 根据结算状态查询费用明细
@@ -46,5 +46,13 @@ public interface CostDetailRepository extends JpaRepositoryRepository<CostDetail
      * @param settlementStatus 结算状态
      * @return 费用明细列表
      */
-    List List<CostDetail> findBySettlementStatus(Integer settlementStatus);
+    List<CostDetail> findBySettlementStatus(Integer settlementStatus);
+
+    /**
+     * 根据费用类型查询费用明细
+     *
+     * @param costType 费用类型
+     * @return 费用明细列表
+     */
+    List<CostDetail> findByCostType(Integer costType);
 }
